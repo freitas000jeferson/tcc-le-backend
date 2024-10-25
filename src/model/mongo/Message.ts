@@ -1,11 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { DATABASE } from 'src/commom/constants';
-import { Chat } from './Chat';
+import { User } from './User';
 
-export interface Button {
+export class Button {
+  @Prop({ required: true })
   id: number;
+  @Prop({ required: true })
   title: string;
+  @Prop()
   payload?: string;
 }
 
@@ -13,9 +16,9 @@ export interface Button {
 export class Message {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Chat',
+    ref: 'User',
   })
-  chatId: Chat;
+  userId: User;
 
   @Prop()
   from: string;
@@ -24,13 +27,13 @@ export class Message {
   to: string;
 
   @Prop()
-  textBody: string;
+  textBody?: string;
 
   @Prop()
-  imageBody: string;
+  imageBody?: string;
 
-  @Prop()
-  buttonsBody?: Button;
+  @Prop({ type: () => [Button] })
+  buttonsBody?: Button[];
 
   @Prop({ default: Date.now, type: Date })
   date?: Date;

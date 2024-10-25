@@ -14,4 +14,7 @@ export class MessageMongoRepository
   ) {
     super(model);
   }
+  async insertMany(data: Message[]): Promise<MessageDocument[]> {
+    return await this.model.insertMany([...data], { ordered: true });
+  }
 }

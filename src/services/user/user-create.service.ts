@@ -27,6 +27,10 @@ export class UserCreateService {
 
     const response = await this.userRepository.create(data);
 
-    return { id: response._id, username: dto.username, email: dto.email };
+    return {
+      id: response._id,
+      username: dto.username,
+      email: dto.email,
+    };
   }
 }

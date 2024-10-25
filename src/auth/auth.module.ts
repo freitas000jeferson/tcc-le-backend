@@ -32,6 +32,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     MongooseModule.forFeature([
       ModelDefinitions.AccessToken,
       ModelDefinitions.User,
+      ModelDefinitions.Chat,
     ]),
     JwtModule.registerAsync({
       useFactory: async () => ({
@@ -46,12 +47,16 @@ import { JwtStrategy } from './strategies/jwt.strategy';
   ],
   controllers: [AuthController],
   providers: [
+    // service principal
     AuthService,
+
+    // services: user
     UserCreateService,
     UserGetByIdService,
     UserUpdateService,
     FindOneUserService,
 
+    // services: login
     LoginService,
     CreateAccessTokenService,
     ValidateTokenService,
@@ -60,8 +65,10 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     FindAccessTokenService,
     LogoutService,
 
+    // services: jwt
     JwtStrategy,
 
+    // implementacoes dos repositorios
     { provide: USER_REPOSITORY_NAME, useClass: UserMongoRepository },
     {
       provide: ACCESS_TOKEN_REPOSITORY_NAME,

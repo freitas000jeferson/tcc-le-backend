@@ -1,7 +1,36 @@
 import { ModelDefinition } from '@nestjs/mongoose';
-import { AccessToken, AccessTokenSchema, User, UserSchema } from './index';
+import {
+  AccessToken,
+  AccessTokenSchema,
+  Category,
+  CategorySchema,
+  Chat,
+  ChatSchema,
+  Grammar,
+  GrammarSchema,
+  History,
+  HistorySchema,
+  Message,
+  MessageSchema,
+  Question,
+  QuestionSchema,
+  Settings,
+  SettingsSchema,
+  User,
+  UserSchema,
+  Vocabulary,
+  VocabularySchema,
+} from './index';
 
 export const ModelDefinitions: Record<string, ModelDefinition> = {
   User: { name: User.name, schema: UserSchema },
   AccessToken: { name: AccessToken.name, schema: AccessTokenSchema },
+  Chat: { name: Chat.name, schema: ChatSchema },
+  Category: { name: Category.name, schema: CategorySchema },
+  Grammar: { name: Grammar.name, schema: GrammarSchema },
+  History: { name: History.name, schema: HistorySchema },
+  Message: { name: Message.name, schema: MessageSchema },
+  Question: { name: Question.name, schema: QuestionSchema },
+  Settings: { name: Settings.name, schema: SettingsSchema },
+  Vocabulary: { name: Vocabulary.name, schema: VocabularySchema },
 } as const;

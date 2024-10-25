@@ -18,9 +18,12 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "generate": "nest g resource"
   },
   "dependencies": {
+    "@nestjs/axios": "^3.1.0",
+    "@nestjs/cache-manager": "^2.3.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^3.2.0",
     "@nestjs/core": "^9.0.0",
@@ -31,19 +34,22 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^7.2.0",
     "@nestjs/throttler": "^5.1.1",
+    "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
     "bs58": "^6.0.0",
+    "cache-manager": "^5.5.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "express": "^4.18.3",
     "helmet": "^7.1.0",
+    "ioredis": "^5.4.1",
     "lodash": "^4.17.21",
     "mongoose": "^8.2.2",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0",
+    "rxjs": "^7.8.1",
     "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {

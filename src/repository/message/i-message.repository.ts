@@ -11,5 +11,6 @@ export interface IMessageRepository {
     query: FilterQuery<MessageDocument>
   ): Promise<MessageDocument[]>;
   create(data: Message): Promise<MessageDocument>;
+  insertMany(data: Message[]): Promise<MessageDocument[]>;
 }
 export const MESSAGE_REPOSITORY_NAME = 'IMessageRepository';
