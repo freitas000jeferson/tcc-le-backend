@@ -8,7 +8,7 @@ export class Settings {
   timeForNextVisit: number[];
 
   @Prop({ default: Date.now, type: Date })
-  updateAt?: Date;
+  updatedAt?: Date;
 }
 
 export type SettingsDocument = Settings & Document;

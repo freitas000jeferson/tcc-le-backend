@@ -1,26 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { CreateLearnDto } from './dto/create-learn.dto';
-import { UpdateLearnDto } from './dto/update-learn.dto';
 
 @Injectable()
 export class LearnService {
-  create(createLearnDto: CreateLearnDto) {
-    return 'This action adds a new learn';
+  async createQuestion(createQuestionsDto) {
+    return 'TODO';
   }
-
-  findAll() {
-    return `This action returns all learn`;
+  async validateQuestion(id, validateQuestionDto) {
+    return 'TODO';
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} learn`;
-  }
-
-  update(id: number, updateLearnDto: UpdateLearnDto) {
-    return `This action updates a #${id} learn`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} learn`;
+  async getLearningContent() {
+    return 'TODO';
   }
 }

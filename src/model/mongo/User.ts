@@ -32,7 +32,7 @@ export class User {
   createdAt?: Date;
 
   @Prop({ default: Date.now, type: Date })
-  updateAt?: Date;
+  updatedAt?: Date;
 }
 
 export type UserDocument = User & Document;

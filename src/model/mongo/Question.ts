@@ -3,27 +3,29 @@ import mongoose, { Document } from 'mongoose';
 import { DATABASE } from 'src/commom/constants';
 import { Category } from './Category';
 
-export interface Option {
+export class Option {
+  @Prop()
   id: number;
+  @Prop()
   text: string;
 }
 
 @Schema({ collection: `${DATABASE.env ?? 'development'}-questions` })
 export class Question {
   @Prop()
-  text: string[];
+  text?: string[];
 
   @Prop()
   image?: string;
 
-  @Prop()
-  options: Option[];
+  @Prop({ type: () => [Option] })
+  options?: Option[];
 
   @Prop()
   answer: string;
 
   @Prop()
-  answerId: number;
+  answerId?: number;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
@@ -38,7 +40,7 @@ export class Question {
   createdAt?: Date;
 
   @Prop({ default: Date.now, type: Date })
-  updateAt?: Date;
+  updatedAt?: Date;
 }
 
 export type QuestionDocument = Question & Document;

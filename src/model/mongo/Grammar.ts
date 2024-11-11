@@ -21,7 +21,7 @@ export class Grammar {
   categoryId: Category;
 
   @Prop({ default: Date.now, type: Date })
-  updateAt?: Date;
+  updatedAt?: Date;
 }
 
 export type GrammarDocument = Grammar & Document;

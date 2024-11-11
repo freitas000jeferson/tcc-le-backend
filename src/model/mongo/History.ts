@@ -47,7 +47,7 @@ export class History {
   createdAt?: Date;
 
   @Prop({ default: Date.now, type: Date })
-  updateAt?: Date;
+  updatedAt?: Date;
 }
 
 export type HistoryDocument = History & Document;

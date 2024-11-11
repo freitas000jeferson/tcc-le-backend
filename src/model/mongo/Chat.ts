@@ -15,7 +15,7 @@ export class Chat {
   createdAt?: Date;
 
   @Prop({ default: Date.now, type: Date })
-  updateAt?: Date;
+  updatedAt?: Date;
 }
 
 export type ChatDocument = Chat & Document;

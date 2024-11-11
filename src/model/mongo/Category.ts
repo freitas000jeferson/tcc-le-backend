@@ -17,7 +17,7 @@ export class Category {
   createdAt?: Date;
 
   @Prop({ default: Date.now, type: Date })
-  updateAt?: Date;
+  updatedAt?: Date;
 }
 
 export type CategoryDocument = Category & Document;

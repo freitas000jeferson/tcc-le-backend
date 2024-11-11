@@ -22,7 +22,7 @@ export class Vocabulary {
   categoryId: Category;
 
   @Prop({ default: Date.now, type: Date })
-  updateAt?: Date;
+  updatedAt?: Date;
 }
 
 export type VocabularyDocument = Vocabulary & Document;

@@ -17,6 +17,7 @@ import {
   UserUpdateService,
 } from 'src/services/user';
 
+import { PassportModule } from '@nestjs/passport';
 import { FindAccessTokenService } from 'src/services/auth/find-access-token.service';
 import { LogoutService } from 'src/services/auth/logout.service';
 import { RefreshTokenService } from 'src/services/auth/refresh-token.service';
@@ -25,6 +26,7 @@ import { ValidateTokenService } from 'src/services/auth/validate-token.service';
 import { FindOneUserService } from 'src/services/user/find-one-user.service';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { BasicStrategy } from './strategies/basic.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
@@ -44,6 +46,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
       }),
       global: true,
     }),
+    PassportModule,
   ],
   controllers: [AuthController],
   providers: [
@@ -67,6 +70,8 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 
     // services: jwt
     JwtStrategy,
+    // services: basic
+    BasicStrategy,
 
     // implementacoes dos repositorios
     { provide: USER_REPOSITORY_NAME, useClass: UserMongoRepository },

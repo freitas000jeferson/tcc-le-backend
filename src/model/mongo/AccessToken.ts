@@ -26,7 +26,7 @@ export class AccessToken {
   createdAt?: Date;
 
   @Prop({ default: Date.now, type: Date })
-  updateAt?: Date;
+  updatedAt?: Date;
 }
 
 export type AccessTokenDocument = AccessToken & Document;
