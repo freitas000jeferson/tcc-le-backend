@@ -1,4 +1,4 @@
-import { FilterQuery } from 'mongoose';
+import { FilterQuery, InsertManyOptions } from 'mongoose';
 import { PaginationType } from 'src/commom/types/pagination.type';
 import { Vocabulary, VocabularyDocument } from 'src/model/mongo';
 
@@ -13,5 +13,9 @@ export interface IVocabularyRepository {
     query: FilterQuery<VocabularyDocument>
   ): Promise<VocabularyDocument[]>;
   create(data: Vocabulary): Promise<VocabularyDocument>;
+  insertMany(
+    data: Vocabulary[],
+    options?: InsertManyOptions & { lean: true }
+  ): Promise<VocabularyDocument[]>;
 }
 export const VOCABULARY_REPOSITORY_NAME = 'IVocabularyRepository';

@@ -1,4 +1,4 @@
-import { FilterQuery } from 'mongoose';
+import { FilterQuery, InsertManyOptions } from 'mongoose';
 import { PaginationType } from 'src/commom/types/pagination.type';
 
 export interface IGenericRepository<T> {
@@ -13,4 +13,8 @@ export interface IGenericRepository<T> {
   create(data: T): Promise<T>;
   update(filter: FilterQuery<T>, data: T): Promise<T>;
   delete(id: string): Promise<void>;
+  insertMany(
+    data: T[],
+    options?: InsertManyOptions & { lean: true }
+  ): Promise<T[]>;
 }

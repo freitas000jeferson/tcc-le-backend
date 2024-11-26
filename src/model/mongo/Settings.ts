@@ -8,6 +8,9 @@ export class Settings {
   timeForNextVisit: number[];
 
   @Prop({ default: Date.now, type: Date })
+  createdAt?: Date;
+
+  @Prop({ default: Date.now, type: Date })
   updatedAt?: Date;
 }
 

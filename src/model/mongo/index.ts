@@ -8,3 +8,4 @@ export * from './Question';
 export * from './Settings';
 export * from './User';
 export * from './Vocabulary';
+export * from './Questionnarie';

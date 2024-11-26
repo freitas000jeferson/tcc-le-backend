@@ -1,4 +1,4 @@
-import { FilterQuery, Model } from 'mongoose';
+import { FilterQuery, InsertManyOptions, Model } from 'mongoose';
 import { PaginationType } from 'src/commom/types/pagination.type';
 import { IGenericRepository } from '../i-generic.repository';
 
@@ -53,5 +53,11 @@ export class MongoGenericRepository<T> implements IGenericRepository<T> {
 
   async delete(id: string): Promise<void> {
     await this._repository.deleteOne({ _id: id });
+  }
+  async insertMany(
+    data: T[],
+    options?: InsertManyOptions & { lean: true }
+  ): Promise<T[]> {
+    return await this._repository.insertMany(data, options);
   }
 }

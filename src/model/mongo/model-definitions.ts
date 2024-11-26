@@ -20,6 +20,8 @@ import {
   UserSchema,
   Vocabulary,
   VocabularySchema,
+  Questionnarie,
+  QuestionnarieSchema,
 } from './index';
 
 export const ModelDefinitions: Record<string, ModelDefinition> = {
@@ -33,4 +35,5 @@ export const ModelDefinitions: Record<string, ModelDefinition> = {
   Question: { name: Question.name, schema: QuestionSchema },
   Settings: { name: Settings.name, schema: SettingsSchema },
   Vocabulary: { name: Vocabulary.name, schema: VocabularySchema },
+  Questionnarie: { name: Questionnarie.name, schema: QuestionnarieSchema },
 } as const;

@@ -22,6 +22,9 @@ export class Vocabulary {
   categoryId: Category;
 
   @Prop({ default: Date.now, type: Date })
+  createdAt?: Date;
+
+  @Prop({ default: Date.now, type: Date })
   updatedAt?: Date;
 }
 

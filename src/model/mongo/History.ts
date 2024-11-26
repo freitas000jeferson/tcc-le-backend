@@ -5,12 +5,23 @@ import { Category } from './Category';
 import { Grammar } from './Grammar';
 import { Question } from './Question';
 import { Vocabulary } from './Vocabulary';
+import { User } from './User';
 
-type HistoryType = 'VOCABULARY' | 'GRAMMAR' | 'QUESTION';
+export enum HistoryType {
+  VOCABULARY = 'VOCABULARY',
+  GRAMMAR = 'GRAMMAR',
+  QUESTION = 'QUESTION',
+}
 
 @Schema({ collection: `${DATABASE.env ?? 'development'}-history` })
 export class History {
-  @Prop()
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  })
+  userId: User;
+
+  @Prop({ type: String, enum: HistoryType })
   type: HistoryType;
 
   @Prop()

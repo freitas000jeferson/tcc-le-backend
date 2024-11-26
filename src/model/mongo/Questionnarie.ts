@@ -3,6 +3,7 @@ import mongoose, { Document } from 'mongoose';
 import { DATABASE } from 'src/commom/constants';
 import { Category } from './Category';
 import { Option, Question } from './Question';
+import { User } from './User';
 
 export enum QuestionStatus {
   RIGTH = 'RIGTH',
@@ -56,6 +57,12 @@ export class QuestionData
 
 @Schema({ collection: `${DATABASE.env ?? 'development'}-questionnaries` })
 export class Questionnarie {
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  })
+  userId: User;
+
   @Prop({
     type: String,
     enum: QuestionnarieStatus,

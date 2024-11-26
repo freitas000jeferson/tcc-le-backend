@@ -1,4 +1,4 @@
-import { FilterQuery } from 'mongoose';
+import { FilterQuery, InsertManyOptions } from 'mongoose';
 import { PaginationType } from 'src/commom/types/pagination.type';
 import { Question, QuestionDocument } from 'src/model/mongo';
 
@@ -11,5 +11,9 @@ export interface IQuestionRepository {
     query: FilterQuery<QuestionDocument>
   ): Promise<QuestionDocument[]>;
   create(data: Question): Promise<QuestionDocument>;
+  insertMany(
+    data: Question[],
+    options?: InsertManyOptions & { lean: true }
+  ): Promise<QuestionDocument[]>;
 }
 export const QUESTION_REPOSITORY_NAME = 'IQuestionRepository';
