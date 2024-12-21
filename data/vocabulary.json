@@ -1,0 +1,68 @@
+[
+    {
+      "text": [
+        "[Teste][VOCABULARY] Texto 0",
+        "vomito odio vorax absque velum deleniti arbor conservo"
+      ],
+      "images": [
+        "https://loremflickr.com/828/3675?lock=6805709849467060"
+      ],
+      "examples": [],
+      "categoryId": "675dc94085e1b04017d86c13"
+    },
+    {
+      "text": [
+        "[Teste][VOCABULARY] Texto 1",
+        "carcer alo currus acceptus varietas comburo aperio timor"
+      ],
+      "images": [
+        "https://loremflickr.com/3/845?lock=3043327441240417"
+      ],
+      "examples": [],
+      "categoryId": "675dc94085e1b04017d86c12"
+    },
+    {
+      "text": [
+        "[Teste][VOCABULARY] Texto 2",
+        "audio copiose vesco"
+      ],
+      "images": [
+        "https://picsum.photos/seed/z9tPreN7o/1179/421"
+      ],
+      "examples": [],
+      "categoryId": "675dc94085e1b04017d86c13"
+    },
+    {
+      "text": [
+        "[Teste][VOCABULARY] Texto 3",
+        "barba spargo aggero vereor volutabrum cumque laudantium"
+      ],
+      "images": [
+        "https://picsum.photos/seed/flpy2X0/2312/2597"
+      ],
+      "examples": [],
+      "categoryId": "675dc94085e1b04017d86c12"
+    },
+    {
+      "text": [
+        "[Teste][VOCABULARY] Texto 4",
+        "coma culpo suspendo textus absum totam aequitas combibo"
+      ],
+      "images": [
+        "https://picsum.photos/seed/enEWJA/2535/3836"
+      ],
+      "examples": [],
+      "categoryId": "675dc94085e1b04017d86c13"
+    },
+    {
+      "text": [
+        "[Teste][VOCABULARY] Texto 5",
+        "corrigo corrumpo vacuus nesciunt"
+      ],
+      "images": [
+        "https://loremflickr.com/164/1383?lock=105387199889706"
+      ],
+      "examples": [],
+      "categoryId": "675dc94085e1b04017d86c12"
+    }
+  ]

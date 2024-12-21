@@ -1,0 +1,8 @@
+[
+  { "name": "TO BE", "description": "", "filter": ["to", "be"] },
+  {
+    "name": "PREPOSITION",
+    "description": "preposition",
+    "filter": ["preposition"]
+  }
+]

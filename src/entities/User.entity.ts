@@ -9,5 +9,5 @@ export class UserEntity {
   isActive?: boolean;
   passwordResetToken?: string;
   createdAt?: Date;
-  updateAt?: Date;
+  updatedAt?: Date;
 }

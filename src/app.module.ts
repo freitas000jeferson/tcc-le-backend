@@ -4,12 +4,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import * as Modules from './modules';
+import { LearnModule, MessagesModule, UserModule } from './modules';
 
 @Module({
   imports: [
     AuthModule,
-    ...Object.values(Modules),
+    LearnModule,
+    MessagesModule,
+    UserModule,
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

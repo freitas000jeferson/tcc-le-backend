@@ -15,7 +15,7 @@ export class UserFactory {
     user.isActive = true;
     user.passwordResetToken = undefined;
     user.createdAt = datenow;
-    user.updateAt = datenow;
+    user.updatedAt = datenow;
 
     return user;
   }

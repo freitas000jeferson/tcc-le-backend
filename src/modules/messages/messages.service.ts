@@ -6,10 +6,7 @@ import { CreateMessageDto } from './dto/create-message.dto';
 
 @Injectable()
 export class MessagesService {
-  constructor(
-    private readonly createMessageService: CreateMessageService,
-    private readonly configService: ConfigService
-  ) {}
+  constructor(private readonly createMessageService: CreateMessageService) {}
 
   async sendMessage(user: UserType, createMessageDto: CreateMessageDto) {
     return await this.createMessageService.handle({

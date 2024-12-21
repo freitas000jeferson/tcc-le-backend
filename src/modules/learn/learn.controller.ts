@@ -1,12 +1,3 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  Query,
-  UseGuards,
-} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { QueryTransformPipe } from 'src/commom/pipes/query-transform.pipe';
 import { CreateQuestionsDto } from './dto/create-questions.dto';
@@ -14,8 +5,20 @@ import { GetLearningContentQueryDto } from './dto/get-learning-content-query.dto
 import { ValidateQuestionDto } from './dto/validate-question.dto';
 import { LearnService } from './learn.service';
 import { CreateNewContentDto } from './dto/create-new-content.dto';
+import { CreateNewCategoryDto } from './dto/create-new-category.dto';
+import { Request } from 'express';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 
-@Controller('learn')
+@Controller({ path: 'learn', version: '1' })
 export class LearnController {
   constructor(private readonly learnService: LearnService) {}
   @UseGuards(AuthGuard('basic'))
@@ -39,11 +42,15 @@ export class LearnController {
     @Param('type') typeContent: string,
     @Query(new QueryTransformPipe()) query: GetLearningContentQueryDto
   ) {
-    return await this.learnService.getLearningContent();
+    return await this.learnService.getLearningContent(typeContent, query);
   }
 
   @Post('new-content')
   async saveContent(@Body() createNewContentDto: CreateNewContentDto) {
     return await this.learnService.saveContent(createNewContentDto);
+  }
+  @Post('category')
+  async saveCategory(@Body() createNewCategoryDto: CreateNewCategoryDto) {
+    return await this.learnService.saveCategory(createNewCategoryDto);
   }
 }

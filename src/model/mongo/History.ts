@@ -59,6 +59,9 @@ export class History {
 
   @Prop({ default: Date.now, type: Date })
   updatedAt?: Date;
+
+  @Prop({ default: Date.now, type: Date })
+  expiredAt?: Date;
 }
 
 export type HistoryDocument = History & Document;

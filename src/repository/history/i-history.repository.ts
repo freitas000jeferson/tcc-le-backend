@@ -1,4 +1,4 @@
-import { FilterQuery } from 'mongoose';
+import { FilterQuery, InsertManyOptions } from 'mongoose';
 import { PaginationType } from 'src/commom/types/pagination.type';
 import { History, HistoryDocument } from 'src/model/mongo';
 
@@ -11,5 +11,16 @@ export interface IHistoryRepository {
     query: FilterQuery<HistoryDocument>
   ): Promise<HistoryDocument[]>;
   create(data: History): Promise<HistoryDocument>;
+  update(
+    filter: FilterQuery<HistoryDocument>,
+    data: History
+  ): Promise<HistoryDocument>;
+  insertMany(
+    data: History[],
+    options?: InsertManyOptions & { lean: true }
+  ): Promise<HistoryDocument[]>;
+  // updateMany(): Promise<HistoryDocument[]>;
+  // data: History[],
+  // options?: InsertManyOptions & { lean: true }
 }
 export const HISTORY_REPOSITORY_NAME = 'IHistoryRepository';

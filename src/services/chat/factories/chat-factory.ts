@@ -7,7 +7,7 @@ export class ChatFactory {
     const date = new Date();
     resp.userId = userId as any;
     resp.createdAt = date;
-    resp.updateAt = date;
+    resp.updatedAt = date;
     return resp;
   }
 }

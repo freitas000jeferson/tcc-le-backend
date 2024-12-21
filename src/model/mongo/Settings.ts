@@ -7,6 +7,9 @@ export class Settings {
   @Prop()
   timeForNextVisit: number[];
 
+  @Prop()
+  scoreForNext: number[];
+
   @Prop({ default: Date.now, type: Date })
   createdAt?: Date;
 

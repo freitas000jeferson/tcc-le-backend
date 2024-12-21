@@ -1,0 +1,389 @@
+[
+  {
+    "categoryId": "675dc94085e1b04017d86c12",
+    "level": 1,
+    "text": ["I ___ Brazilian and I live in Curitiba."],
+    "image": "",
+    "answer": "am",
+    "answerId": 0,
+    "options": [
+      {
+        "id": 0,
+        "text": "am"
+      },
+      {
+        "id": 1,
+        "text": "is"
+      },
+      {
+        "id": 2,
+        "text": "are"
+      }
+    ]
+  },
+  {
+    "categoryId": "675dc94085e1b04017d86c12",
+    "level": 1,
+    "text": ["___ you talking to me?"],
+    "image": "",
+    "answer": "Are",
+    "answerId": 2,
+    "options": [
+      {
+        "id": 0,
+        "text": "am"
+      },
+      {
+        "id": 1,
+        "text": "is"
+      },
+      {
+        "id": 2,
+        "text": "are"
+      }
+    ]
+  },
+  {
+    "categoryId": "675dc94085e1b04017d86c12",
+    "level": 1,
+    "text": ["What ___ Sheila doing?"],
+    "image": "",
+    "answer": "is",
+    "answerId": 1,
+    "options": [
+      {
+        "id": 0,
+        "text": "am"
+      },
+      {
+        "id": 1,
+        "text": "is"
+      },
+      {
+        "id": 2,
+        "text": "are"
+      }
+    ]
+  },
+  {
+    "categoryId": "675dc94085e1b04017d86c12",
+    "level": 1,
+    "text": ["My dog ___ playing in the garden."],
+    "image": "",
+    "answer": "is",
+    "answerId": 1,
+    "options": [
+      {
+        "id": 0,
+        "text": "am"
+      },
+      {
+        "id": 1,
+        "text": "is"
+      },
+      {
+        "id": 2,
+        "text": "are"
+      }
+    ]
+  },
+  {
+    "categoryId": "675dc94085e1b04017d86c12",
+    "level": 1,
+    "text": ["The doors ___ closed."],
+    "image": "",
+    "answer": "are",
+    "answerId": 2,
+    "options": [
+      {
+        "id": 0,
+        "text": "am"
+      },
+      {
+        "id": 1,
+        "text": "is"
+      },
+      {
+        "id": 2,
+        "text": "are"
+      }
+    ]
+  },
+  {
+    "text": ["It is not sensible ___ get into an argument with him."],
+    "image": "",
+    "options": [
+      {
+        "id": 0,
+        "text": "of"
+      },
+      {
+        "id": 1,
+        "text": "to"
+      },
+      {
+        "id": 2,
+        "text": "with"
+      }
+    ],
+    "answer": "to",
+    "answerId": 1,
+    "categoryId": "675dc94085e1b04017d86c13",
+    "level": 1
+  },
+
+  {
+    "text": ["People who are true ___ their word are respected."],
+    "image": "",
+    "options": [
+      {
+        "id": 0,
+        "text": "with"
+      },
+      {
+        "id": 1,
+        "text": "of"
+      },
+      {
+        "id": 2,
+        "text": "to"
+      }
+    ],
+    "answer": "to"
+    ,"answerId": 2,
+    "categoryId": "675dc94085e1b04017d86c13",
+    "level": 1
+  },
+
+  {
+    "text": ["I was not aware of his involvement ___ the scandal."],
+    "image": "",
+    "options": [
+      {
+        "id": 0,
+        "text": "with"
+      },
+      {
+        "id": 1,
+        "text": "for"
+      },
+      {
+        "id": 2,
+        "text": "in"
+      }
+    ],
+    "answer": "with",
+    "answerId": 0,
+    "categoryId": "675dc94085e1b04017d86c13",
+    "level": 1
+  },
+
+  {
+    "text": [
+      "The driver was entrusted ___ the task of getting the boy back home safely."
+    ],
+    "image": "",
+    "options": [
+      {
+        "id": 0,
+        "text": "by"
+      },
+      {
+        "id": 1,
+        "text": "with"
+      },
+      {
+        "id": 2,
+        "text": "from"
+      }
+    ],
+    "answer": "with",
+    "answerId": 1,
+    "categoryId": "675dc94085e1b04017d86c13",
+    "level": 1
+  },
+
+  {
+    "text": ["We were amused ___ his antics."],
+    "image": "",
+    "options": [
+      {
+        "id": 0,
+        "text": "by"
+      },
+      {
+        "id": 1,
+        "text": "with"
+      },
+      {
+        "id": 2,
+        "text": "of"
+      }
+    ],
+    "answer": "by",
+    "answerId": 0,
+    "categoryId": "675dc94085e1b04017d86c13",
+    "level": 1
+  },
+
+  {
+    "text": ["I was disappointed ___ my performance."],
+    "image": "",
+    "options": [
+      {
+        "id": 0,
+        "text": "by"
+      },
+      {
+        "id": 1,
+        "text": "of"
+      },
+      {
+        "id": 2,
+        "text": "with"
+      }
+    ],
+    "answer": "with",
+    "answerId": 2,
+    "categoryId": "675dc94085e1b04017d86c13",
+    "level": 1
+  },
+
+  {
+    "text": ["Are there any exceptions ___ this rule?"],
+    "image": "",
+    "options": [
+      {
+        "id": 0,
+        "text": "for"
+      },
+      {
+        "id": 1,
+        "text": "of"
+      },
+      {
+        "id": 2,
+        "text": "to"
+      }
+    ],
+    "answer": "to",
+    "answerId": 2,
+    "categoryId": "675dc94085e1b04017d86c13",
+    "level": 1
+  },
+
+  {
+    "text": ["She is quite fond of showing ___ her wealth."],
+    "image": "",
+    "options": [
+      {
+        "id": 0,
+        "text": "off"
+      },
+      {
+        "id": 1,
+        "text": "with"
+      },
+      {
+        "id": 2,
+        "text": "for"
+      }
+    ],
+    "answer": "off",
+    "answerId": 0,
+    "categoryId": "675dc94085e1b04017d86c13",
+    "level": 1
+  },
+
+  {
+    "text": ["The man was dismissed ___ his job."],
+    "image": "",
+    "options": [
+      {
+        "id": 0,
+        "text": "of"
+      },
+      {
+        "id": 1,
+        "text": "from"
+      },
+      {
+        "id": 2,
+        "text": "with"
+      }
+    ],
+    "answer": "from",
+    "answerId": 1,
+    "categoryId": "675dc94085e1b04017d86c13",
+    "level": 1
+  },
+
+  {
+    "text": ["She seemed preoccupied ___ her work."],
+    "image": "",
+    "options": [
+      {
+        "id": 0,
+        "text": "by"
+      },
+      {
+        "id": 1,
+        "text": "with"
+      },
+      {
+        "id": 2,
+        "text": "of"
+      }
+    ],
+    "answer": "with",
+    "answerId": 1,
+    "categoryId": "675dc94085e1b04017d86c13",
+    "level": 1
+  },
+
+  {
+    "text": ["They were completely absorbed ___ each other."],
+    "image": "",
+    "options": [
+      {
+        "id": 0,
+        "text": "with"
+      },
+      {
+        "id": 1,
+        "text": "in"
+      },
+      {
+        "id": 2,
+        "text": "at"
+      }
+    ],
+    "answer": "in"
+    ,"answerId": 1,
+    "categoryId": "675dc94085e1b04017d86c13",
+    "level": 1
+  },
+
+  {
+    "text": ["You should distance yourself ___ such people."],
+    "image": "",
+    "options": [
+      {
+        "id": 0,
+        "text": "with"
+      },
+      {
+        "id": 1,
+        "text": "from"
+      },
+      {
+        "id": 2,
+        "text": "to"
+      }
+    ],
+    "answer": "from"
+    ,"answerId": 1,
+    "categoryId": "675dc94085e1b04017d86c13",
+    "level": 1
+  }
+]
