@@ -20,6 +20,10 @@ import { HISTORY_REPOSITORY_NAME } from 'src/repository/history/i-history.reposi
 import { HistoryMongoRepository } from 'src/repository/history/implementations/history-mongo.repository';
 import { QUESTIONNARIE_REPOSITORY_NAME } from 'src/repository/questionnarie/i-questionnarie.repository';
 import { QuestionnarieMongoRepository } from 'src/repository/questionnarie/implementations/questionnarie-mongo.repository';
+import { FindHistoryService } from 'src/services/learn/find-history.service';
+import { GetCategoryService } from 'src/services/learn/get-category.service';
+import { CreateQuestionService } from 'src/services/learn/create-question.service';
+import { ValidateQuestionService } from 'src/services/learn/validate-question.service';
 
 @Module({
   imports: [
@@ -46,6 +50,10 @@ import { QuestionnarieMongoRepository } from 'src/repository/questionnarie/imple
     CreateCategoryService,
     GetLearningContentService,
     GetSettingsService,
+    FindHistoryService,
+    GetCategoryService,
+    CreateQuestionService,
+    ValidateQuestionService,
 
     // implementacoes dos repositorios
     { provide: GRAMMAR_REPOSITORY_NAME, useClass: GrammarMongoRepository },

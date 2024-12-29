@@ -10,7 +10,7 @@ export class PaginationService {
   }: PaginationQueryDto): PaginationType {
     const sortBy = [];
     if (sort && order) {
-      sortBy.push([sort, order]);
+      sortBy.push([order, sort]);
     }
     return { limit: size, skip: page * size, sort: sortBy };
   }

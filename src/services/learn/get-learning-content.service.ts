@@ -28,7 +28,8 @@ import {
 import { GetSettingsService } from '../settings/get-settings.service';
 import { PaginationService } from 'src/commom/providers/pagination.service';
 import { addDays } from 'date-fns';
-import { FilterQuery } from 'mongoose';
+import { FilterQuery, ObjectId } from 'mongoose';
+import { GetCategoryService } from './get-category.service';
 
 interface HandleProps {
   type: string;
@@ -38,7 +39,7 @@ interface HandleProps {
 }
 interface FindContentByIdsProps {
   histories: HistoryDocument[];
-  category: string;
+  category: ObjectId;
   type: string;
   op: 'NIN' | 'IN';
   length?: number;
@@ -55,7 +56,8 @@ export class GetLearningContentService {
     @Inject(HISTORY_REPOSITORY_NAME)
     private readonly historyRepository: IHistoryRepository,
     private readonly findHistoryService: FindHistoryService,
-    private readonly getSettingsService: GetSettingsService
+    private readonly getSettingsService: GetSettingsService,
+    private readonly getCategoryService: GetCategoryService
   ) {}
 
   private findNextVisit(timeForNextVisit: number[], nextVisitedId = 0) {
@@ -95,7 +97,7 @@ export class GetLearningContentService {
       const historiesOlds = await this.historyRepository.findAllPaginated(
         PaginationService.build({
           size: length - historiesRecycling.length,
-          sort: 'desc',
+          sort: 'asc',
           order: 'updatedAt',
         }),
         { ...filter, expiredAt: { $gt: new Date() } }
@@ -133,10 +135,12 @@ export class GetLearningContentService {
           userId: userId,
           categoryId: category,
           type: type as HistoryType,
-          grammarId: type === 'GRAMMAR' && (item as GrammarDocument).id,
+          grammarId:
+            type === 'GRAMMAR' ? (item as GrammarDocument).id : undefined,
           vocabularyId:
-            type === 'VOCABULARY' && (item as VocabularyDocument).id,
-          questionId: type === 'QUESTION' && (item as QuestionDocument).id,
+            type === 'VOCABULARY' ? (item as VocabularyDocument).id : undefined,
+          questionId:
+            type === 'QUESTION' ? (item as QuestionDocument).id : undefined,
           nextVisitedId: 0,
           nextVisited: 1,
         })
@@ -149,7 +153,7 @@ export class GetLearningContentService {
     category,
     type,
     op,
-    length = 1,
+    length,
   }: FindContentByIdsProps): Promise<
     (VocabularyDocument | GrammarDocument | QuestionDocument)[]
   > {
@@ -157,7 +161,7 @@ export class GetLearningContentService {
 
     const query: FilterQuery<VocabularyDocument> = {
       $and: [
-        { id: op === 'NIN' ? { $nin: ids } : { $in: ids } },
+        { _id: op === 'NIN' ? { $nin: ids } : { $in: ids } },
         { categoryId: category },
       ],
     };
@@ -187,25 +191,30 @@ export class GetLearningContentService {
   }
 
   async handle({ type, userId, category, length = 1 }: HandleProps) {
+    const categoryDocument = await this.getCategoryService.handle(category);
+    const categoryId = categoryDocument.id;
+
     const histories = await this.findHistoryService.handle(
       type,
       userId,
-      category
+      categoryId as string
     );
     // faz a busca todos conteudos que nao tem no historico: ids das historias
     const contents = await this.findContentByIds({
       histories,
-      category,
+      category: categoryId as ObjectId,
       type,
       op: 'NIN',
+      length,
     });
-    if (contents.length != 0) {
+
+    if (contents.length > 0) {
       // salva o novos items a serem mostrados
       await this.insertManyHistories(contents, {
         type,
         userId,
         length,
-        category,
+        category: categoryId,
       });
     }
     // BUSCA historias recicladas para fazer parte da lista
@@ -214,13 +223,14 @@ export class GetLearningContentService {
         length: length - contents.length,
         type,
         userId,
-        category,
+        category: categoryId,
       });
       const contentsRecicling = await this.findContentByIds({
         histories: historiesRecycling,
-        category,
+        category: categoryId,
         type,
         op: 'IN',
+        length: length - contents.length,
       });
       contents.push(...contentsRecicling);
     }

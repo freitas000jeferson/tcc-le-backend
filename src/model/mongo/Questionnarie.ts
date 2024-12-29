@@ -4,6 +4,7 @@ import { DATABASE } from 'src/commom/constants';
 import { Category } from './Category';
 import { Option, Question } from './Question';
 import { User } from './User';
+import { Exclude } from 'class-transformer';
 
 export enum QuestionStatus {
   RIGTH = 'RIGTH',
@@ -32,22 +33,27 @@ export class QuestionData
   @Prop({ type: () => [Option] })
   options?: Option[];
 
+  @Exclude()
   @Prop()
   answer: string;
 
+  @Exclude()
   @Prop()
   answerId?: number;
 
+  @Exclude()
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
   })
   categoryId: Category;
 
-  // Resposta
+  // Resposta do usuario
+  @Exclude()
   @Prop()
   answered?: string;
 
+  @Exclude()
   @Prop()
   answeredId?: number;
 

@@ -1,9 +1,8 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class GetLearningContentQueryDto {
-  @IsOptional()
   @IsString()
-  userId?: string;
+  userId: string;
   @IsString()
   category: string;
 }

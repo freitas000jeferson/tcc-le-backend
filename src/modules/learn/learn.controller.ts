@@ -6,7 +6,6 @@ import { ValidateQuestionDto } from './dto/validate-question.dto';
 import { LearnService } from './learn.service';
 import { CreateNewContentDto } from './dto/create-new-content.dto';
 import { CreateNewCategoryDto } from './dto/create-new-category.dto';
-import { Request } from 'express';
 import {
   Body,
   Controller,
@@ -14,7 +13,6 @@ import {
   Param,
   Post,
   Query,
-  Req,
   UseGuards,
 } from '@nestjs/common';
 

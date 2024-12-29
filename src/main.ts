@@ -1,6 +1,10 @@
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  ValidationPipe,
+  VersioningType,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { TimeoutInterceptor } from './commom/interceptors/timeout.interceptor';
@@ -10,6 +14,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get<ConfigService>(ConfigService);
   app.useGlobalInterceptors(new TimeoutInterceptor());
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   app.use(helmet());

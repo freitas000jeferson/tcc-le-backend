@@ -4,6 +4,7 @@ import { Questionnarie, QuestionnarieDocument } from 'src/model/mongo';
 
 export interface IQuestionnarieRepository {
   countDocuments(): Promise<number>;
+  findById(id: string): Promise<QuestionnarieDocument>;
   findOne(
     query: FilterQuery<QuestionnarieDocument>
   ): Promise<QuestionnarieDocument>;
