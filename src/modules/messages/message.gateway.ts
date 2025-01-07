@@ -50,12 +50,9 @@ export class MessageGateway
     @ConnectedSocket() client: Socket,
     @UserWs() user: UserType
   ) {
-    console.log(
-      `Message received from client id: ${client.id} ${JSON.stringify(user)}`
-    );
     console.log(`Payload: ${JSON.stringify(data, null, 2)}`);
 
-    const { userId } = data;
+    const { userId } = user;
     this.responseMessage(userId, data);
   }
 
