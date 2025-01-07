@@ -1,16 +1,5 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import {
-  AuthMissingException,
-  ResourceNotFoundException,
-} from 'src/commom/exceptions';
-import { FindAccessTokenService } from 'src/services/auth/find-access-token.service';
-import { FindOneUserService } from 'src/services/user/find-one-user.service';
 import { AuthorizationService } from '../providers/authorization.service';
 
 @Injectable()
@@ -31,12 +20,12 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
 
     // Se é um token válido
-    const token = this.extractTokenFromHeader(request);
+    const token = AuthGuard.extractTokenFromHeader(request);
 
     return this.authorizationService.handle(token, 'http');
   }
 
-  private extractTokenFromHeader(request: Request): string | undefined {
+  static extractTokenFromHeader(request: Request): string | undefined {
     const [type, token] = request.headers['authorization']?.split(' ') ?? [];
     return type === 'Bearer' ? token : undefined;
   }

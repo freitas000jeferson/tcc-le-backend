@@ -36,6 +36,7 @@ import { AuthorizationService } from 'src/auth/providers/authorization.service';
     SpeechToTextService,
     SpeechToTextServiceV2,
 
+    AuthorizationService,
     // implementacoes dos repositorios
     { provide: MESSAGE_REPOSITORY_NAME, useClass: MessageMongoRepository },
   ],

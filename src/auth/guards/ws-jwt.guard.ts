@@ -1,10 +1,8 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { WsException } from '@nestjs/websockets';
 import { Observable } from 'rxjs';
 import { Socket } from 'socket.io';
 import { AuthorizationService } from '../providers/authorization.service';
-import { ValidateJwtPayloadService } from '../providers/validate-jwt-payload.service';
 
 @Injectable()
 export class WSJwtGuard implements CanActivate {
@@ -22,14 +20,12 @@ export class WSJwtGuard implements CanActivate {
 
     const client: Socket = context.switchToWs().getClient();
     // Se é um token válido
-    const token = this.extractTokenFromClient(client);
+    const token = WSJwtGuard.extractTokenFromClient(client);
 
-    console.log('[WSGUARD] passou o authorization:', token);
     return this.authorizationService.handle(token, 'ws');
-
-    // return super.canActivate(context);
   }
-  extractTokenFromClient(client: Socket): string | undefined {
+
+  static extractTokenFromClient(client: Socket): string | undefined {
     const { authorization } = client.handshake.headers;
     const [type, token] = authorization?.split(' ') ?? [];
 

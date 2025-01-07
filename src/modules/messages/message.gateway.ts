@@ -1,4 +1,4 @@
-import { UseGuards } from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
 import {
   MessageBody,
   SubscribeMessage,
@@ -14,6 +14,8 @@ import { User, UserType } from 'src/auth/decorators/user.decorator';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { WSJwtGuard } from 'src/auth/guards/ws-jwt.guard';
 import { SocketAuthMiddleware } from 'src/auth/middlewares/socket-auth.middleware';
+import { UserWs } from 'src/auth/decorators/user-ws.decorator';
+import { AuthorizationService } from 'src/auth/providers/authorization.service';
 
 @WebSocketGateway({ cors: '*' })
 @UseGuards(WSJwtGuard)
@@ -22,6 +24,8 @@ export class MessageGateway
 {
   @WebSocketServer()
   private server: Server;
+
+  constructor(private readonly authorizationService: AuthorizationService) {}
 
   handleConnection(client: any, ...args: any[]) {
     const { sockets } = this.server.sockets;
@@ -33,9 +37,9 @@ export class MessageGateway
     console.log(`🔴 Cliend id: ${client.id} Disconnected`);
   }
 
-  async afterInit(@ConnectedSocket() client: Socket) {
+  async afterInit(@ConnectedSocket() server: Server) {
     console.log('Socket is initialize');
-    client.use(SocketAuthMiddleware() as any);
+    server.use(SocketAuthMiddleware(this.authorizationService) as any);
   }
 
   // @UseGuards(AuthGuard)
@@ -44,9 +48,11 @@ export class MessageGateway
   sendMessage(
     @MessageBody() data: CreateMessageDto,
     @ConnectedSocket() client: Socket,
-    @User() user: UserType
+    @UserWs() user: UserType
   ) {
-    console.log(`Message received from client id: ${client.id} `);
+    console.log(
+      `Message received from client id: ${client.id} ${JSON.stringify(user)}`
+    );
     console.log(`Payload: ${JSON.stringify(data, null, 2)}`);
 
     const { userId } = data;

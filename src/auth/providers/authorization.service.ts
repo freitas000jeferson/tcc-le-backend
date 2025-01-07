@@ -41,10 +41,7 @@ export class AuthorizationService {
       if (type === 'http') throw new UnauthorizedException();
       else throw new WsException(`unauthorized`);
     }
-    console.log(
-      'PASSOU no Authorization\n',
-      JSON.stringify(existUser, null, 2)
-    );
+
     return true;
   }
 }
