@@ -9,6 +9,7 @@ import { UserFactory } from '../user/user-factory';
 import { AccessTokenFactory } from './access-token-factory';
 import { CreateAccessTokenService } from './create-access-token.service';
 import { VerifyPasswordService } from './verify-password.service';
+import { UserDocument } from 'src/model/mongo';
 
 @Injectable()
 export class LoginService {
@@ -19,7 +20,7 @@ export class LoginService {
   ) {}
 
   async handle(dto: LoginDto) {
-    const userExists = await this.userRepository.findOne({
+    const userExists: UserDocument = await this.userRepository.findOne({
       email: dto.username,
     });
     if (!userExists) {
@@ -32,6 +33,6 @@ export class LoginService {
       UserFactory.parseUser(userExists)
     );
 
-    return await this.createAccessTokenService.handle(payload, userExists._id);
+    return await this.createAccessTokenService.handle(payload, userExists.id);
   }
 }

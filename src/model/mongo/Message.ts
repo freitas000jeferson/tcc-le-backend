@@ -32,11 +32,17 @@ export class Message {
   @Prop()
   imageBody?: string;
 
+  @Prop()
+  metadata?: string;
+
   @Prop({ type: () => [Button] })
   buttonsBody?: Button[];
 
   @Prop({ default: Date.now, type: Date })
   date?: Date;
+
+  @Prop({ type: Date })
+  userDate?: Date;
 }
 
 export type MessageDocument = Message & Document;

@@ -28,6 +28,8 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { BasicStrategy } from './strategies/basic.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { AuthorizationService } from './providers/authorization.service';
+import { ValidateJwtPayloadService } from './providers/validate-jwt-payload.service';
 
 @Module({
   imports: [
@@ -52,6 +54,10 @@ import { JwtStrategy } from './strategies/jwt.strategy';
   providers: [
     // service principal
     AuthService,
+
+    // outros serviços
+    AuthorizationService,
+    ValidateJwtPayloadService,
 
     // services: user
     UserCreateService,
@@ -82,6 +88,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
   ],
   exports: [
     AuthService,
+    AuthorizationService,
     UserCreateService,
     UserGetByIdService,
     FindOneUserService,

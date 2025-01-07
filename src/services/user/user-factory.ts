@@ -29,7 +29,7 @@ export class UserFactory {
 
   static getUser(data: UserDocument): GetUserResponseDto {
     const user = new GetUserResponseDto();
-    user.id = data._id;
+    user.id = data.id;
     user.email = data.email;
     user.username = data.username;
     user.avatar = data.avatar;
@@ -39,7 +39,7 @@ export class UserFactory {
   }
   static parseUser(data: UserDocument): UserEntity {
     const user = new UserEntity();
-    user.id = data._id;
+    user.id = data.id;
     user.email = data.email;
     user.username = data.username;
     user.avatar = data.avatar;

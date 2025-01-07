@@ -9,6 +9,10 @@ import { CreateMessageService } from 'src/services/message/create-message.servic
 import { SendMessageService } from 'src/services/message/send-message.service';
 import { MessagesController } from './messages.controller';
 import { MessagesService } from './messages.service';
+import { SpeechToTextService } from 'src/services/rabbitmq/speech-to-text.service';
+import { SpeechToTextServiceV2 } from 'src/services/transcription/speech-to-text.service';
+import { MessageGateway } from './message.gateway';
+import { AuthorizationService } from 'src/auth/providers/authorization.service';
 
 @Module({
   imports: [
@@ -24,10 +28,13 @@ import { MessagesService } from './messages.service';
   providers: [
     // service principal
     MessagesService,
+    MessageGateway,
 
     // services: messages
     SendMessageService,
     CreateMessageService,
+    SpeechToTextService,
+    SpeechToTextServiceV2,
 
     // implementacoes dos repositorios
     { provide: MESSAGE_REPOSITORY_NAME, useClass: MessageMongoRepository },
