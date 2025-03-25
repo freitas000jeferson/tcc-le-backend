@@ -41,6 +41,7 @@ export class LearnService {
       type: typeContent,
       category: query.category,
       userId: query.userId,
+      parseToEntity: true,
     });
   }
 

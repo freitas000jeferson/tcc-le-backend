@@ -30,12 +30,19 @@ import { PaginationService } from 'src/commom/providers/pagination.service';
 import { addDays } from 'date-fns';
 import { FilterQuery, ObjectId } from 'mongoose';
 import { GetCategoryService } from './get-category.service';
+import { LearningContentFactory } from './factories/learning-content-factory';
+import {
+  GrammarResponseDto,
+  QuestionResponseDto,
+  VocabularyResponseDto,
+} from 'src/modules/learn/dto/get-learning-content-response.dto';
 
 interface HandleProps {
   type: string;
   category: string;
   userId: string;
   length?: number;
+  parseToEntity?: boolean;
 }
 interface FindContentByIdsProps {
   histories: HistoryDocument[];
@@ -44,6 +51,15 @@ interface FindContentByIdsProps {
   op: 'NIN' | 'IN';
   length?: number;
 }
+type HandleResponse = (
+  | VocabularyDocument
+  | GrammarDocument
+  | QuestionDocument
+  | GrammarResponseDto
+  | QuestionResponseDto
+  | VocabularyResponseDto
+)[];
+
 @Injectable()
 export class GetLearningContentService {
   constructor(
@@ -190,7 +206,13 @@ export class GetLearningContentService {
     return contents;
   }
 
-  async handle({ type, userId, category, length = 1 }: HandleProps) {
+  async handle({
+    type,
+    userId,
+    category,
+    length = 1,
+    parseToEntity = false,
+  }: HandleProps): Promise<HandleResponse> {
     const categoryDocument = await this.getCategoryService.handle(category);
     const categoryId = categoryDocument.id;
 
@@ -235,6 +257,9 @@ export class GetLearningContentService {
       contents.push(...contentsRecicling);
     }
 
+    if (parseToEntity) {
+      return LearningContentFactory.toEntity(contents, type);
+    }
     return contents;
   }
 }
