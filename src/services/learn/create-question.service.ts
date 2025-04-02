@@ -4,11 +4,11 @@ import {
   IQuestionnarieRepository,
   QUESTIONNARIE_REPOSITORY_NAME,
 } from 'src/repository/questionnarie/i-questionnarie.repository';
-import { GetLearningContentService } from './get-learning-content.service';
 import { QuestionDocument } from 'src/model/mongo';
 import { QuestionnarieFactory } from './factories/questionnarie-factory';
 import { ResourceNotFoundException } from 'src/commom/exceptions';
 import { QuestionnarieResponseDto } from 'src/modules/learn/dto/question-response.dto';
+import { GetLearningContentService } from './get-learning-content.service';
 
 const QUESTONS_LENGTH = 3;
 

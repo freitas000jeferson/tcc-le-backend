@@ -1,4 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { FilterQuery } from 'mongoose';
+import { HistoryDocument } from 'src/model/mongo';
 import {
   HISTORY_REPOSITORY_NAME,
   IHistoryRepository,
@@ -11,11 +13,14 @@ export class FindHistoryService {
     private readonly historyRepository: IHistoryRepository
   ) {}
 
-  async handle(type: string, userId: string, category: string) {
-    return await this.historyRepository.findAll({
+  async handle(type: string, userId: string, category?: string) {
+    const filter: FilterQuery<HistoryDocument> = {
       userId: userId,
-      categoryId: category,
       type: type,
-    });
+    };
+    if (category) {
+      filter.categoryId = category;
+    }
+    return await this.historyRepository.findAll({ ...filter });
   }
 }

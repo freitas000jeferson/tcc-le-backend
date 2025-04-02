@@ -13,17 +13,23 @@ import { VocabularyMongoRepository } from 'src/repository/vocabulary/implementat
 import { CreateContentService } from 'src/services/learn/create-content.service';
 import { CATEGORY_REPOSITORY_NAME } from 'src/repository/category/i-category.repository';
 import { CategoryMongoRepository } from 'src/repository/category/implementations/category-mongo.repository';
-import { CreateCategoryService } from 'src/services/learn/create-category.service';
-import { GetLearningContentService } from 'src/services/learn/get-learning-content.service';
+import { CreateCategoryService } from 'src/services/category/create-category.service';
 import { GetSettingsService } from 'src/services/settings/get-settings.service';
 import { HISTORY_REPOSITORY_NAME } from 'src/repository/history/i-history.repository';
 import { HistoryMongoRepository } from 'src/repository/history/implementations/history-mongo.repository';
 import { QUESTIONNARIE_REPOSITORY_NAME } from 'src/repository/questionnarie/i-questionnarie.repository';
 import { QuestionnarieMongoRepository } from 'src/repository/questionnarie/implementations/questionnarie-mongo.repository';
-import { FindHistoryService } from 'src/services/learn/find-history.service';
-import { GetCategoryService } from 'src/services/learn/get-category.service';
+
+import { GetCategoryService } from 'src/services/category/get-category.service';
 import { CreateQuestionService } from 'src/services/learn/create-question.service';
 import { ValidateQuestionService } from 'src/services/learn/validate-question.service';
+import { GetLearningContentFilterService } from 'src/services/learn/get-learning-content-filter.service';
+import { GetLearningContentService } from 'src/services/learn/get-learning-content.service';
+import { FindContentByIdsService } from 'src/services/learn/find-content-by-ids.service';
+import { InsertManyHistoriesService } from 'src/services/history/insert-many-histories.service';
+import { GetRecycledContentByHistoryService } from 'src/services/history/get-recycled-content-by-history.service';
+import { FindHistoryService } from 'src/services/history/find-history.service';
+import { GetCurrentQuestionService } from 'src/services/learn/get-current-question.service';
 
 @Module({
   imports: [
@@ -46,14 +52,23 @@ import { ValidateQuestionService } from 'src/services/learn/validate-question.se
     LearnService,
 
     // services
-    CreateContentService,
     CreateCategoryService,
-    GetLearningContentService,
-    GetSettingsService,
-    FindHistoryService,
     GetCategoryService,
+    // ----
+    CreateContentService,
+    GetLearningContentService,
+    GetLearningContentFilterService,
+    FindContentByIdsService,
+    // ----
+    GetCurrentQuestionService,
     CreateQuestionService,
     ValidateQuestionService,
+    // -----
+    FindHistoryService,
+    InsertManyHistoriesService,
+    GetRecycledContentByHistoryService,
+    // -----
+    GetSettingsService,
 
     // implementacoes dos repositorios
     { provide: GRAMMAR_REPOSITORY_NAME, useClass: GrammarMongoRepository },

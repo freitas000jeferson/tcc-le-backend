@@ -1,8 +1,6 @@
 import { HistoryEntity } from 'src/entities/History.entity';
 import { History, HistoryDocument } from 'src/model/mongo';
 import { addDays } from 'date-fns';
-import { ObjectId } from 'mongoose';
-
 export class HistoryFactory {
   static create(data: HistoryEntity): History {
     const resp = new History();

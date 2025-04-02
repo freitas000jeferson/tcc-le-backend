@@ -15,6 +15,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
+import { GetCurrentQuestionQueryDto } from './dto/get-current-question-query.dto';
 
 @Controller({ path: 'learn', version: '1' })
 export class LearnController {
@@ -23,6 +24,14 @@ export class LearnController {
   @Post('questions')
   async createQuestions(@Body() createQuestionsDto: CreateQuestionsDto) {
     return await this.learnService.createQuestion(createQuestionsDto);
+  }
+  @UseGuards(AuthGuard('basic'))
+  @Get('questions/:id')
+  async getCurrentQuestion(
+    @Param('id') id: string,
+    @Query(new QueryTransformPipe()) query: GetCurrentQuestionQueryDto
+  ) {
+    return await this.learnService.getCurrentQuestion(id, query.questionId);
   }
 
   @UseGuards(AuthGuard('basic'))
@@ -40,6 +49,7 @@ export class LearnController {
     @Param('type') typeContent: string,
     @Query(new QueryTransformPipe()) query: GetLearningContentQueryDto
   ) {
+    console.log('GET LEARNING', typeContent, query);
     return await this.learnService.getLearningContent(typeContent, query);
   }
 
