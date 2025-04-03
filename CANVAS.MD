@@ -26,6 +26,16 @@ Rotas do backend para autenticação e do usuário.
   - [x] get my account/profile - POST /auth/profile
   - [x] refresh token - POST /auth/refresh-token
   - [x] validate token - POST /auth/validate-token
+# TODO
+- [RASA] testar quiz no rasa
+- [RASA] criar stories do quiz
+- [BACK] integrar socket para mandar msg para o rasa
+- [ANALISE_AUDIO] criar analise do audio no servico python analise audio
+- [BACK] conectar upload de arquivo com o RabbitMq do servico python
+- [BACK] integrar socket para voltar resultado do servico de audio python
+- [FRONT] criar telas splash, login, create-user, main, chat, quiz, envio de audio
+- [FRONT] integrar telas com as apis
+- criar docker com todos os serviços(rabbitmq, analise audio, rasa nlu, rasa actions, back)
 
 # DOING
 

@@ -3,10 +3,22 @@ import sys
 import json
 import base64
 import whisper
+import difflib
+import nltk
+from nltk.tokenize import word_tokenize
+from pydub import AudioSegment
 import io
 import os
 
 model = whisper.load_model("base")
+
+def converter_para_wav(arquivo_audio):
+    if not arquivo_audio.endswith(".wav"):
+        audio = AudioSegment.from_file(arquivo_audio)
+        novo_arquivo = arquivo_audio.split(".")[0] + ".wav"
+        audio.export(novo_arquivo, format="wav")
+        return novo_arquivo
+    return arquivo_audio
 
 def callback(ch, method, properties, body):
     data = json.loads(body)
