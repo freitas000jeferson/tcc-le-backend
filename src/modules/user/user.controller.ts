@@ -7,6 +7,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
+import { AuthGuard as BasicAuthGuard } from '@nestjs/passport';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { PaginationQueryDto } from 'src/commom/dtos/pagination-query.dto';
@@ -19,6 +20,11 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private userService: UserService) {}
 
+  @UseGuards(BasicAuthGuard('basic'))
+  @Get(':id/profile')
+  async getProfile(@Param('id') id: string) {
+    return await this.userService.getById(id);
+  }
   @UseGuards(JwtAuthGuard, AuthGuard)
   @Get(':id')
   async getById(@Param('id') id: string) {

@@ -16,6 +16,7 @@ import { WSJwtGuard } from 'src/auth/guards/ws-jwt.guard';
 import { SocketAuthMiddleware } from 'src/auth/middlewares/socket-auth.middleware';
 import { UserWs } from 'src/auth/decorators/user-ws.decorator';
 import { AuthorizationService } from 'src/auth/providers/authorization.service';
+import { MessagesService } from './messages.service';
 
 @WebSocketGateway({ cors: '*' })
 @UseGuards(WSJwtGuard)
@@ -25,7 +26,10 @@ export class MessageGateway
   @WebSocketServer()
   private server: Server;
 
-  constructor(private readonly authorizationService: AuthorizationService) {}
+  constructor(
+    private readonly authorizationService: AuthorizationService,
+    private readonly messagesService: MessagesService
+  ) {}
 
   handleConnection(client: any, ...args: any[]) {
     const { sockets } = this.server.sockets;
@@ -42,18 +46,21 @@ export class MessageGateway
     server.use(SocketAuthMiddleware(this.authorizationService) as any);
   }
 
+  // nao precisa dos guards comentados(por enquanto)
   // @UseGuards(AuthGuard)
   // @UseGuards(WsGuard)
   @SubscribeMessage('send-message')
-  sendMessage(
+  async sendMessage(
     @MessageBody() data: CreateMessageDto,
     @ConnectedSocket() client: Socket,
     @UserWs() user: UserType
   ) {
-    console.log(`Payload: ${JSON.stringify(data, null, 2)}`);
+    console.log(`Payload: ${JSON.stringify(data, null, 2)}`, user);
+    const response = await this.messagesService.sendMessage(user, data);
 
-    const { userId } = user;
-    this.responseMessage(userId, data);
+    this.server.emit(`response-${user.userId}`, response);
+    // const { userId } = user;
+    // this.responseMessage(userId, data);
   }
 
   responseMessage(userId, payload) {

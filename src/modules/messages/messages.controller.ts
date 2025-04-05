@@ -17,16 +17,19 @@ import { MessagesService } from './messages.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileSizeValidationPipe } from 'src/commom/pipes/file-size-validation.pipe';
 import { Response } from 'express';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller({ path: 'messages', version: '1' })
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
-  @UseGuards(AuthGuard)
+
+  @UseGuards(JwtAuthGuard, AuthGuard)
   @Post()
   async create(
     @User() user: UserType,
     @Body() createMessageDto: CreateMessageDto
   ) {
+    console.log(user, createMessageDto);
     return await this.messagesService.sendMessage(user, createMessageDto);
   }
 

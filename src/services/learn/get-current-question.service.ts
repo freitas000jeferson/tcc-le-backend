@@ -4,9 +4,14 @@ import {
   QUESTIONNARIE_REPOSITORY_NAME,
 } from 'src/repository/questionnarie/i-questionnarie.repository';
 import { ResourceNotFoundException } from 'src/commom/exceptions';
-import { QuestionnarieStatus, QuestionStatus } from 'src/model/mongo';
+import {
+  QuestionnarieDocument,
+  QuestionnarieStatus,
+  QuestionStatus,
+} from 'src/model/mongo';
 import { QuestionnarieResponseDto } from 'src/modules/learn/dto/question-response.dto';
 import { QuestionnarieFactory } from './factories/questionnarie-factory';
+import { PaginationService } from 'src/commom/providers/pagination.service';
 
 interface HadleProps {
   id: string;
@@ -24,7 +29,22 @@ export class GetCurrentQuestionService {
     id,
     questionId,
   }: HadleProps): Promise<QuestionnarieResponseDto> {
-    const questionnarie = await this.questionnarieRepository.findById(id);
+    let questionnarie = await this.questionnarieRepository.findById(id);
+    if (!questionnarie) {
+      const pagination = PaginationService.build({
+        size: 1,
+        order: 'updatedAt',
+        sort: 'desc',
+      });
+
+      const questionnarieFiltered =
+        await this.questionnarieRepository.findAllPaginated(pagination, {
+          userId: id,
+        });
+      if (questionnarieFiltered && questionnarieFiltered.length > 0) {
+        questionnarie = questionnarieFiltered[0];
+      }
+    }
     if (!questionnarie) {
       throw new ResourceNotFoundException(`questionnarie-${id}`);
     }

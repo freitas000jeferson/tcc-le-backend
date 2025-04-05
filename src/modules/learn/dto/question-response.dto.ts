@@ -14,5 +14,5 @@ export class QuestionnarieResponseDto {
   lastQuestionStatus?: QuestionStatus;
   totalQuestions: number;
   totalCorrectAnswers: number;
-  question: QuestionResponseDto;
+  question?: QuestionResponseDto;
 }

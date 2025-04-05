@@ -5,7 +5,7 @@ import {
 } from 'src/repository/message/i-message.repository';
 import { MessageFactory } from './message-factory';
 import { SendMessageService } from './send-message.service';
-import { SendMessageServiceDto } from './types';
+import { ChatbotMessageResponseDto, SendMessageServiceDto } from './types';
 
 @Injectable()
 export class CreateMessageService {
@@ -18,10 +18,16 @@ export class CreateMessageService {
   async handle(dto: SendMessageServiceDto) {
     const userMessage = MessageFactory.fromUser(dto);
 
-    const botResponse = await this.sendMessageService.handle(dto);
-    const botMessage = MessageFactory.fromBot(botResponse);
+    const botResponse: ChatbotMessageResponseDto[] =
+      await this.sendMessageService.handle(dto);
 
-    await this.messageRepository.insertMany([userMessage, botMessage]);
-    return {};
+    const botMessages = MessageFactory.fromBot(botResponse, dto.userId);
+
+    const messages = await this.messageRepository.insertMany([
+      userMessage,
+      ...botMessages,
+    ]);
+
+    return MessageFactory.toEntity(messages.slice(1));
   }
 }

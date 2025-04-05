@@ -2,6 +2,9 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { DATABASE } from 'src/commom/constants';
 import { User } from './User';
+import { CustomMetadataResponse } from 'src/services/message/types';
+import { QuestionnarieStatus, QuestionStatus } from './Questionnarie';
+import { QuestionResponseDto } from 'src/modules/learn/dto/question-response.dto';
 
 export class Button {
   @Prop({ required: true })
@@ -10,6 +13,17 @@ export class Button {
   title: string;
   @Prop()
   payload?: string;
+}
+export class Metadata implements CustomMetadataResponse {
+  id?: string;
+  status?: QuestionnarieStatus;
+  lastQuestionStatus?: QuestionStatus;
+  totalQuestions?: number;
+  totalCorrectAnswers?: number;
+  question?: QuestionResponseDto;
+  text?: string[];
+  images?: string[];
+  examples?: string[];
 }
 
 @Schema({ collection: `${DATABASE.env ?? 'development'}-message` })
@@ -32,8 +46,8 @@ export class Message {
   @Prop()
   imageBody?: string;
 
-  @Prop()
-  metadata?: string;
+  @Prop({ type: () => Metadata })
+  metadata?: Metadata;
 
   @Prop({ type: () => [Button] })
   buttonsBody?: Button[];
@@ -41,7 +55,7 @@ export class Message {
   @Prop({ default: Date.now, type: Date })
   date?: Date;
 
-  @Prop({ type: Date })
+  @Prop({ default: Date.now, type: Date })
   userDate?: Date;
 }
 

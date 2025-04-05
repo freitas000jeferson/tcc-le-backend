@@ -3,7 +3,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { AxiosError } from 'axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { MessageFactory } from './message-factory';
-import { SendMessageServiceDto } from './types';
+import { ChatbotMessageResponseDto, SendMessageServiceDto } from './types';
 
 @Injectable()
 export class SendMessageService {
@@ -12,12 +12,17 @@ export class SendMessageService {
   async handle(dto: SendMessageServiceDto) {
     try {
       const { data } = await firstValueFrom(
-        this.httpService.post('', MessageFactory.sendMessage(dto)).pipe(
-          catchError((error: AxiosError) => {
-            console.error(error.response.data);
-            throw 'An error happened!';
-          })
-        )
+        this.httpService
+          .post<ChatbotMessageResponseDto[]>(
+            'http://192.168.3.8:5005/webhooks/rest/webhook',
+            MessageFactory.sendMessage(dto)
+          )
+          .pipe(
+            catchError((error: AxiosError) => {
+              console.error(error.response.data);
+              throw 'An error happened!';
+            })
+          )
       );
       return data;
     } catch (error) {

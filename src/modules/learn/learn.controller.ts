@@ -29,9 +29,10 @@ export class LearnController {
   @Get('questions/:id')
   async getCurrentQuestion(
     @Param('id') id: string,
-    @Query(new QueryTransformPipe()) query: GetCurrentQuestionQueryDto
+    @Query(new QueryTransformPipe()) query?: GetCurrentQuestionQueryDto
   ) {
-    return await this.learnService.getCurrentQuestion(id, query.questionId);
+    console.log('AQUI', id, query);
+    return await this.learnService.getCurrentQuestion(id, query?.questionId);
   }
 
   @UseGuards(AuthGuard('basic'))
