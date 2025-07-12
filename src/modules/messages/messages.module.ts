@@ -13,6 +13,7 @@ import { SpeechToTextService } from 'src/services/rabbitmq/speech-to-text.servic
 import { SpeechToTextServiceV2 } from 'src/services/transcription/speech-to-text.service';
 import { MessageGateway } from './message.gateway';
 import { AuthorizationService } from 'src/auth/providers/authorization.service';
+import { ConnectionsService } from './connections.service';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { AuthorizationService } from 'src/auth/providers/authorization.service';
     // service principal
     MessagesService,
     MessageGateway,
+    ConnectionsService,
 
     // services: messages
     SendMessageService,

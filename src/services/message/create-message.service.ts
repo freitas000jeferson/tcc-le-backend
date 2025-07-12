@@ -28,6 +28,6 @@ export class CreateMessageService {
       ...botMessages,
     ]);
 
-    return MessageFactory.toEntity(messages.slice(1));
+    return MessageFactory.toEntity(messages);
   }
 }

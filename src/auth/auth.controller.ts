@@ -17,6 +17,7 @@ import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { AuthGuard } from './guards/auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { ValidateCodeAndEmailDto } from './dto/validate-code-and-email.dto';
 
 @Controller({ path: 'auth', version: '1' })
 export class AuthController {
@@ -73,42 +74,10 @@ export class AuthController {
     //'Envia email para alteração de senha(deve conter codigo para validacao)';
     return await this.authService.forgotPassword(dto);
   }
-  @Get('reset-password/:code')
-  async resetPasswordValidate(@Param('code') code: string) {
-    //'Valida o code para realizar o reset de senha ';
-    return await this.authService.resetPasswordValidate(code);
-  }
 
-  @Post('reset-password/:code')
-  async resetPassword(
-    @Param('code') code: string,
-    @Body() dto: ResetPasswordDto
-  ) {
+  @Post('reset-password')
+  async resetPassword(@Body() dto: ResetPasswordDto) {
     //'Faz o reset de senha';
-    return await this.authService.resetPassword(code, dto);
+    return await this.authService.resetPassword(dto);
   }
-
-  //   @Get()
-  //   findAll() {
-  //this.bookService.findAll();
-  //return await this.authService.//();
-  //   }
-
-  //   @Get(':id')
-  //   findOne(@Param('id') id: string) {
-  //this.bookService.findOne(+id);
-  //return await this.authService.//();
-  //   }
-
-  //   @Patch(':id')
-  //   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-  //this.bookService.update(+id, updateBookDto);
-  //return await this.authService.//();
-  //   }
-
-  //   @Delete(':id')
-  //   remove(@Param('id') id: string) {
-  //this.bookService.remove(+id);
-  //return await this.authService.//();
-  //   }
 }

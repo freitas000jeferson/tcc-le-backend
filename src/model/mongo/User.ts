@@ -26,7 +26,10 @@ export class User {
   isActive?: boolean;
 
   @Prop({ select: false })
-  passwordResetToken?: string;
+  resetCode?: string;
+
+  @Prop({ select: false })
+  resetCodeExpires?: Date;
 
   @Prop({ default: Date.now, type: Date })
   createdAt?: Date;

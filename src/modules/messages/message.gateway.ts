@@ -17,6 +17,7 @@ import { SocketAuthMiddleware } from 'src/auth/middlewares/socket-auth.middlewar
 import { UserWs } from 'src/auth/decorators/user-ws.decorator';
 import { AuthorizationService } from 'src/auth/providers/authorization.service';
 import { MessagesService } from './messages.service';
+import { ConnectionsService } from './connections.service';
 
 @WebSocketGateway({ cors: '*' })
 @UseGuards(WSJwtGuard)
@@ -27,18 +28,33 @@ export class MessageGateway
   private server: Server;
 
   constructor(
+    private readonly connectionsService: ConnectionsService,
     private readonly authorizationService: AuthorizationService,
     private readonly messagesService: MessagesService
   ) {}
 
-  handleConnection(client: any, ...args: any[]) {
+  handleConnection(client: Socket, ..._: any[]) {
     const { sockets } = this.server.sockets;
-    console.log(`🟢 Client id: ${client.id} Connected`);
+    const userId = client.data.user?.userId;
+
+    if (userId) {
+      this.connectionsService.add(userId, client.id);
+      console.log(`🟢 User connected: ${userId} | socketId: ${client.id}`);
+    } else {
+      console.log(`⚠️ Conexão sem userId, desconectando socket ${client.id}`);
+      client.disconnect();
+    }
     console.log(`Number of connected clients: ${sockets.size}`);
   }
 
-  handleDisconnect(client: any) {
-    console.log(`🔴 Cliend id: ${client.id} Disconnected`);
+  handleDisconnect(client: Socket) {
+    console.log(`🔴 Socket id: ${client.id} Disconnected`);
+    const userId = client.data.user?.userId;
+
+    if (userId) {
+      this.connectionsService.remove(userId);
+      console.log(`🔴 User disconnected: ${userId}`);
+    }
   }
 
   async afterInit(@ConnectedSocket() server: Server) {
@@ -46,32 +62,43 @@ export class MessageGateway
     server.use(SocketAuthMiddleware(this.authorizationService) as any);
   }
 
-  // nao precisa dos guards comentados(por enquanto)
-  // @UseGuards(AuthGuard)
-  // @UseGuards(WsGuard)
   @SubscribeMessage('send-message')
   async sendMessage(
     @MessageBody() data: CreateMessageDto,
     @ConnectedSocket() client: Socket,
     @UserWs() user: UserType
   ) {
-    console.log(`Payload: ${JSON.stringify(data, null, 2)}`, user);
+    // Caso queira pegar o user do client
+    // const fromUser = client.data.user;
+    console.log(
+      ` Mensagem recebida de ${user.userId}:`,
+      JSON.stringify(data, null, 2)
+    );
     const response = await this.messagesService.sendMessage(user, data);
 
-    this.server.emit(`response-${user.userId}`, response);
-    // const { userId } = user;
-    // this.responseMessage(userId, data);
+    // pega o socketId do usuário destino
+    const socketId = this.connectionsService.getSocketId(user.userId);
+
+    if (socketId) {
+      // responde pelo canal do usuário
+      this.server.to(socketId).emit('receive-message', response);
+    } else {
+      console.log(
+        `Usuário destino ${user.userId}[${user.email}] não conectado.`
+      );
+    }
   }
 
-  responseMessage(userId, payload) {
-    this.server.emit(
-      `response-${userId}`,
-      {
-        ...payload,
-        message: `Resposta do bot: ${payload.message}`,
-        userId: 'bot',
-      },
-      'bot'
-    );
-  }
+  // Exemplo de resposta do bot
+  // responseMessage(userId, payload) {
+  //   this.server.emit(
+  //     `response-${userId}`,
+  //     {
+  //       ...payload,
+  //       message: `Resposta do bot: ${payload.message}`,
+  //       userId: 'bot',
+  //     },
+  //     'bot'
+  //   );
+  // }
 }

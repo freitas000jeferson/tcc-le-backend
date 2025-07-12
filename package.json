@@ -22,6 +22,7 @@
     "generate": "nest g resource"
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "^2.0.2",
     "@nestjs/axios": "^3.1.0",
     "@nestjs/cache-manager": "^2.3.0",
     "@nestjs/common": "^9.0.0",
@@ -51,6 +52,7 @@
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "mongoose": "^8.2.2",
+    "nodemailer": "^7.0.5",
     "openai": "^4.77.0",
     "passport": "^0.7.0",
     "passport-http": "^0.3.0",

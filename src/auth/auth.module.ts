@@ -30,6 +30,8 @@ import { BasicStrategy } from './strategies/basic.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { AuthorizationService } from './providers/authorization.service';
 import { ValidateJwtPayloadService } from './providers/validate-jwt-payload.service';
+import { ForgotPasswordService } from 'src/services/auth/forgot-password.service';
+import { MailService } from 'src/services/mail/mail.service';
 
 @Module({
   imports: [
@@ -73,6 +75,9 @@ import { ValidateJwtPayloadService } from './providers/validate-jwt-payload.serv
     SaveTokenService,
     FindAccessTokenService,
     LogoutService,
+    // services: forgot password
+    ForgotPasswordService,
+    MailService,
 
     // services: jwt
     JwtStrategy,

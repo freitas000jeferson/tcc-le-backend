@@ -15,6 +15,8 @@ import { ResetPasswordDto } from './dto/change-password.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
+import { ForgotPasswordService } from 'src/services/auth/forgot-password.service';
+import { ResetPasswordService } from 'src/services/auth/reset-password.service';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +27,9 @@ export class AuthService {
     private readonly refreshTokenService: RefreshTokenService,
     private readonly userGetByIdService: UserGetByIdService,
     private readonly logoutService: LogoutService,
-    private readonly userUpdateService: UserUpdateService
+    private readonly userUpdateService: UserUpdateService,
+    private readonly forgotPasswordService: ForgotPasswordService,
+    private readonly resetPasswordService: ResetPasswordService
   ) {}
 
   async register(dto: CreateUserDto) {
@@ -61,14 +65,10 @@ export class AuthService {
   }
 
   async forgotPassword(dto: ForgotPasswordDto) {
-    return 'Envia email para alteração de senha(deve conter codigo para validacao)';
+    return await this.forgotPasswordService.handle(dto.email);
   }
 
-  async resetPasswordValidate(code: string) {
-    return 'Valida o code para realizar o reset de senha ';
-  }
-
-  async resetPassword(code: string, dto: ResetPasswordDto) {
-    return 'Faz o reset de senha';
+  async resetPassword(dto: ResetPasswordDto) {
+    return await this.resetPasswordService.handle(dto);
   }
 }

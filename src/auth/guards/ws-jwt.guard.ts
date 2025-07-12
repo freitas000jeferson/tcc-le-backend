@@ -3,6 +3,7 @@ import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { Socket } from 'socket.io';
 import { AuthorizationService } from '../providers/authorization.service';
+import { ValidateJwtPayloadService } from '../providers/validate-jwt-payload.service';
 
 @Injectable()
 export class WSJwtGuard implements CanActivate {
@@ -22,7 +23,17 @@ export class WSJwtGuard implements CanActivate {
     // Se é um token válido
     const token = WSJwtGuard.extractTokenFromClient(client);
 
-    return this.authorizationService.handle(token, 'ws');
+    const isValid = this.authorizationService.handle(token, 'ws');
+    if (isValid) {
+      try {
+        const user = ValidateJwtPayloadService.handle(token);
+        // Salva user no client
+        client.data.user = user;
+      } catch (_) {
+        return false;
+      }
+    }
+    return isValid;
   }
 
   static extractTokenFromClient(client: Socket): string | undefined {

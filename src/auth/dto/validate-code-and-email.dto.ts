@@ -1,7 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsString, IsStrongPassword } from 'class-validator';
+import { ResetPasswordDto } from './change-password.dto';
+import { IsEmail, IsString } from 'class-validator';
 
-export class ResetPasswordDto {
+export class ValidateCodeAndEmailDto
+  implements Omit<ResetPasswordDto, 'password'>
+{
   @ApiProperty({
     description: 'Código de validação enviado por email',
     type: String,
@@ -18,13 +21,4 @@ export class ResetPasswordDto {
   @IsString()
   @IsEmail()
   email: string;
-
-  @ApiProperty({
-    description: 'Nova Senha',
-    type: String,
-    required: true,
-  })
-  @IsString()
-  @IsStrongPassword()
-  password: string;
 }
