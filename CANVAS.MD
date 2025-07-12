@@ -15,10 +15,10 @@ Rotas do backend para autenticação e do usuário.
 
   - [x] create user - POST /auth/register
 
-  - [] forgot password - POST /auth/forgot-password/
+  - [x] forgot password - POST /auth/forgot-password/
     (envia email com codigo)
-  - [] valida codigo para reset-password - POST /auth/forgout-password/{code}
-  - [] update user password - POST /auth/reset-password/
+  - [x] valida codigo para reset-password - POST /auth/forgout-password/{code}
+  - [x] update user password - POST /auth/reset-password/
     (no body vai o code recebido por email e nova senha)
 
   - [x] login - POST /auth/login
