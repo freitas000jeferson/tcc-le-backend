@@ -11,13 +11,12 @@ import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { Token } from './decorators/token.decorator';
 import { User, UserType } from './decorators/user.decorator';
-import { ResetPasswordDto } from './dto/change-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { AuthGuard } from './guards/auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { ValidateCodeAndEmailDto } from './dto/validate-code-and-email.dto';
 
 @Controller({ path: 'auth', version: '1' })
 export class AuthController {

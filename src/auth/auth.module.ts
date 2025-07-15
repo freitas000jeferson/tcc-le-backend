@@ -32,6 +32,7 @@ import { AuthorizationService } from './providers/authorization.service';
 import { ValidateJwtPayloadService } from './providers/validate-jwt-payload.service';
 import { ForgotPasswordService } from 'src/services/auth/forgot-password.service';
 import { MailService } from 'src/services/mail/mail.service';
+import { ResetPasswordService } from 'src/services/auth/reset-password.service';
 
 @Module({
   imports: [
@@ -76,6 +77,7 @@ import { MailService } from 'src/services/mail/mail.service';
     FindAccessTokenService,
     LogoutService,
     // services: forgot password
+    ResetPasswordService,
     ForgotPasswordService,
     MailService,
 

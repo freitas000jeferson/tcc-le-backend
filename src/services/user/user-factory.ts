@@ -13,7 +13,8 @@ export class UserFactory {
     user.password = data.password;
     user.level = 1;
     user.isActive = true;
-    user.passwordResetToken = undefined;
+    user.resetCode = undefined;
+    user.resetCodeExpires = undefined;
     user.createdAt = datenow;
     user.updatedAt = datenow;
 

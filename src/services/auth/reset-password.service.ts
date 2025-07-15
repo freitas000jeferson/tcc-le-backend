@@ -4,7 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ResetPasswordDto } from 'src/auth/dto/change-password.dto';
+import { ResetPasswordDto } from 'src/auth/dto/reset-password.dto';
 import { HashEncryptorService } from 'src/commom/providers/hash-encryptor.service';
 import { UserDocument } from 'src/model/mongo';
 
@@ -30,8 +30,8 @@ export class ResetPasswordService {
     if (user.resetCode !== code || user.resetCodeExpires < new Date()) {
       throw new BadRequestException('Código inválido ou expirado');
     }
-    user.resetCode = null;
-    user.resetCodeExpires = null;
+    user.resetCode = undefined;
+    user.resetCodeExpires = undefined;
     user.password = await HashEncryptorService.hashPassword(password);
     user.save();
 

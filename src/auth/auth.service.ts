@@ -11,7 +11,7 @@ import {
   UserUpdateService,
 } from 'src/services/user';
 import { UserType } from './decorators/user.decorator';
-import { ResetPasswordDto } from './dto/change-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
