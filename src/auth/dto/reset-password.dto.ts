@@ -11,6 +11,14 @@ export class ResetPasswordDto {
   code: string;
 
   @ApiProperty({
+    description: 'Código de validação enviado na request',
+    type: String,
+    required: true,
+  })
+  @IsString()
+  validationCode: string;
+
+  @ApiProperty({
     description: 'Email do cliente',
     type: String,
     required: true,

@@ -6,6 +6,13 @@ export class ValidateCodeAndEmailDto
   implements Omit<ResetPasswordDto, 'password'>
 {
   @ApiProperty({
+    description: 'Código de validação enviado na request',
+    type: String,
+    required: true,
+  })
+  @IsString()
+  validationCode: string;
+  @ApiProperty({
     description: 'Código de validação enviado por email',
     type: String,
     required: true,

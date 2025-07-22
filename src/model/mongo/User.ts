@@ -26,6 +26,9 @@ export class User {
   isActive?: boolean;
 
   @Prop({ select: false })
+  validationCode?: string;
+
+  @Prop({ select: false })
   resetCode?: string;
 
   @Prop({ select: false })

@@ -17,6 +17,9 @@ import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { ForgotPasswordService } from 'src/services/auth/forgot-password.service';
 import { ResetPasswordService } from 'src/services/auth/reset-password.service';
+import { ValidateCodeAndEmailDto } from './dto/validate-code-and-email.dto';
+import { ValidateCodeService } from 'src/services/auth/validate-code.service';
+import { ResendCodeDto } from './dto/resend-code.dto';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +32,8 @@ export class AuthService {
     private readonly logoutService: LogoutService,
     private readonly userUpdateService: UserUpdateService,
     private readonly forgotPasswordService: ForgotPasswordService,
-    private readonly resetPasswordService: ResetPasswordService
+    private readonly resetPasswordService: ResetPasswordService,
+    private readonly validateCodeService: ValidateCodeService
   ) {}
 
   async register(dto: CreateUserDto) {
@@ -68,6 +72,15 @@ export class AuthService {
     return await this.forgotPasswordService.handle(dto.email);
   }
 
+  async resendCode(dto: ResendCodeDto) {
+    return await this.forgotPasswordService.handle(
+      dto.email,
+      dto.validationCode
+    );
+  }
+  async validateCodeAndEmail(dto: ValidateCodeAndEmailDto) {
+    return await this.validateCodeService.handle(dto);
+  }
   async resetPassword(dto: ResetPasswordDto) {
     return await this.resetPasswordService.handle(dto);
   }

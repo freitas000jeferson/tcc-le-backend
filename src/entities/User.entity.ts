@@ -7,7 +7,9 @@ export class UserEntity {
   level?: number;
   score?: number;
   isActive?: boolean;
-  passwordResetToken?: string;
+  validationCode?: string;
+  resetCode?: string;
+  resetCodeExpires?: Date;
   createdAt?: Date;
   updatedAt?: Date;
 }

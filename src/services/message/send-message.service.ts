@@ -14,7 +14,7 @@ export class SendMessageService {
       const { data } = await firstValueFrom(
         this.httpService
           .post<ChatbotMessageResponseDto[]>(
-            'http://192.168.3.8:5005/webhooks/rest/webhook',
+            'http://192.168.3.4:5005/webhooks/rest/webhook',
             MessageFactory.sendMessage(dto)
           )
           .pipe(

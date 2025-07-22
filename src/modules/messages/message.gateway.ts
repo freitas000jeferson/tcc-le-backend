@@ -18,6 +18,8 @@ import { UserWs } from 'src/auth/decorators/user-ws.decorator';
 import { AuthorizationService } from 'src/auth/providers/authorization.service';
 import { MessagesService } from './messages.service';
 import { ConnectionsService } from './connections.service';
+import { MessageEntity } from 'src/entities/Message.entity';
+import { MessageFactory } from 'src/services/message/message-factory';
 
 @WebSocketGateway({ cors: '*' })
 @UseGuards(WSJwtGuard)
