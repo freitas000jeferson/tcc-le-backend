@@ -21,7 +21,8 @@ export const SocketAuthMiddleware = (
       if (authorizationService) {
         authorizationService.handle(token);
       }
-      // client = Object.assign(client, { user: user! });
+      client = Object.assign(client, { data: { user: user! } });
+      console.log('SocketAuthMiddleware', user);
       next();
     } catch (error) {
       next(new Error('Unauthorized'));

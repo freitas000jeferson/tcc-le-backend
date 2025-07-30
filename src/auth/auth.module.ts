@@ -33,6 +33,7 @@ import { ValidateJwtPayloadService } from './providers/validate-jwt-payload.serv
 import { ForgotPasswordService } from 'src/services/auth/forgot-password.service';
 import { MailService } from 'src/services/mail/mail.service';
 import { ResetPasswordService } from 'src/services/auth/reset-password.service';
+import { ValidateCodeService } from 'src/services/auth/validate-code.service';
 
 @Module({
   imports: [
@@ -45,7 +46,7 @@ import { ResetPasswordService } from 'src/services/auth/reset-password.service';
       useFactory: async () => ({
         secret: JWT_CONSTANTS().jwt_secret,
         signOptions: {
-          expiresIn: '30m',
+          expiresIn: '60m',
           algorithm: JWT_CONSTANTS().access_token_algorithm,
         },
       }),
@@ -79,6 +80,7 @@ import { ResetPasswordService } from 'src/services/auth/reset-password.service';
     // services: forgot password
     ResetPasswordService,
     ForgotPasswordService,
+    ValidateCodeService,
     MailService,
 
     // services: jwt

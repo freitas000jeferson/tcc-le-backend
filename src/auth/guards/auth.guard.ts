@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
     // Se é um token válido
     const token = AuthGuard.extractTokenFromHeader(request);
 
-    return this.authorizationService.handle(token, 'http');
+    return await this.authorizationService.handle(token, 'http');
   }
 
   static extractTokenFromHeader(request: Request): string | undefined {

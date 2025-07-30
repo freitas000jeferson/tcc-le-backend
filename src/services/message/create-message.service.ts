@@ -13,7 +13,7 @@ export class CreateMessageService {
     @Inject(MESSAGE_REPOSITORY_NAME)
     private messageRepository: IMessageRepository,
     private readonly sendMessageService: SendMessageService
-  ) {}
+  ) { }
 
   async handle(dto: SendMessageServiceDto) {
     const userMessage = MessageFactory.fromUser(dto);

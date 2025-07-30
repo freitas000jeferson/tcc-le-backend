@@ -19,6 +19,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { ValidateCodeAndEmailDto } from './dto/validate-code-and-email.dto';
 import { ResendCodeDto } from './dto/resend-code.dto';
+import { Public } from './decorators/public.decorator';
 
 @Controller({ path: 'auth', version: '1' })
 export class AuthController {
@@ -54,7 +55,8 @@ export class AuthController {
     return await this.authService.profile(user);
   }
 
-  @UseGuards(JwtAuthGuard, AuthGuard)
+  @Public()
+  // @UseGuards(JwtAuthGuard)
   @Post('refresh-token')
   async refreshToken(@Body() dto: RefreshTokenDto) {
     //'Atualiza token e novo refresh';

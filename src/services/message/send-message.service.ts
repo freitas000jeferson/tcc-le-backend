@@ -7,7 +7,7 @@ import { ChatbotMessageResponseDto, SendMessageServiceDto } from './types';
 
 @Injectable()
 export class SendMessageService {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(private readonly httpService: HttpService) { }
 
   async handle(dto: SendMessageServiceDto) {
     try {
@@ -26,6 +26,7 @@ export class SendMessageService {
       );
       return data;
     } catch (error) {
+      console.error('ERROR send message to rasa', error);
       throw new InternalServerErrorException(error, 'REQUEST SERVER RASA');
     }
   }

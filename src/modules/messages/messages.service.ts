@@ -12,7 +12,7 @@ export class MessagesService {
     private readonly createMessageService: CreateMessageService,
     private readonly speechToTextService: SpeechToTextService,
     private readonly sttV2: SpeechToTextServiceV2
-  ) {}
+  ) { }
 
   async sendMessage(user: UserType, createMessageDto: CreateMessageDto) {
     return await this.createMessageService.handle({

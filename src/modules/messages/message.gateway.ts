@@ -1,4 +1,4 @@
-import { Injectable, UseGuards } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
 import {
   MessageBody,
   SubscribeMessage,
@@ -19,13 +19,11 @@ import { AuthorizationService } from 'src/auth/providers/authorization.service';
 import { MessagesService } from './messages.service';
 import { ConnectionsService } from './connections.service';
 import { MessageEntity } from 'src/entities/Message.entity';
-import { MessageFactory } from 'src/services/message/message-factory';
 
 @WebSocketGateway({ cors: '*' })
 @UseGuards(WSJwtGuard)
 export class MessageGateway
-  implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit
-{
+  implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit {
   @WebSocketServer()
   private server: Server;
 
@@ -33,7 +31,7 @@ export class MessageGateway
     private readonly connectionsService: ConnectionsService,
     private readonly authorizationService: AuthorizationService,
     private readonly messagesService: MessagesService
-  ) {}
+  ) { }
 
   handleConnection(client: Socket, ..._: any[]) {
     const { sockets } = this.server.sockets;
@@ -59,7 +57,7 @@ export class MessageGateway
     }
   }
 
-  async afterInit(@ConnectedSocket() server: Server) {
+  async afterInit(server: Server) {
     console.log('Socket is initialize');
     server.use(SocketAuthMiddleware(this.authorizationService) as any);
   }
@@ -76,19 +74,53 @@ export class MessageGateway
       ` Mensagem recebida de ${user.userId}:`,
       JSON.stringify(data, null, 2)
     );
+    // const res: MessageEntity[] = [
+    //   {
+    //     id: '00000001',
+    //     userId: user.userId,
+    //     from: 'me',
+    //     to: 'bot',
+    //     textBody: data.message,
+    //     imageBody: undefined,
+    //     metadata: undefined,
+    //     buttonsBody: undefined,
+    //     date: new Date(Date.now()),
+    //     userDate: data.userDate,
+    //   },
+    //   {
+    //     id: '00000000',
+    //     userId: user.userId,
+    //     from: 'bot',
+    //     to: 'me',
+    //     textBody: 'Resposta do bot',
+    //     imageBody: 'url',
+    //     metadata: undefined,
+    //     buttonsBody: [
+    //       { id: 0, title: 'opcao a', payload: 'a' },
+    //       { id: 1, title: 'opcao b', payload: 'b' },
+    //       { id: 2, title: 'opcao c', payload: 'c' },
+    //     ],
+    //     date: new Date(Date.now()),
+    //     userDate: data.userDate,
+    //   },
+    // ];
+    // client.emit('receive-message', res);
+    // return;
     const response = await this.messagesService.sendMessage(user, data);
+    console.log("MENSAGEM Do Bot", response);
+    client.emit('receive-message', response);
 
     // pega o socketId do usuário destino
-    const socketId = this.connectionsService.getSocketId(user.userId);
+    // const socketId = this.connectionsService.getSocketId(user.userId);
 
-    if (socketId) {
-      // responde pelo canal do usuário
-      this.server.to(socketId).emit('receive-message', response);
-    } else {
-      console.log(
-        `Usuário destino ${user.userId}[${user.email}] não conectado.`
-      );
-    }
+    // if (socketId) {
+    //   // responde pelo canal do usuário
+    //   this.server.to(socketId).emit('receive-message', response);
+    // } else {
+    //   console.log(
+    //     `Usuário destino ${user.userId}[${user.email}] não conectado.`
+    //   );
+    // }
   }
 
   // Exemplo de resposta do bot
