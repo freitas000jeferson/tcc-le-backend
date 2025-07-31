@@ -1,0 +1,5 @@
+requests
+pika 
+openai-whisper
+pydub
+difflib
