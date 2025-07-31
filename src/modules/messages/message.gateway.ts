@@ -23,7 +23,8 @@ import { MessageEntity } from 'src/entities/Message.entity';
 @WebSocketGateway({ cors: '*' })
 @UseGuards(WSJwtGuard)
 export class MessageGateway
-  implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit {
+  implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit
+{
   @WebSocketServer()
   private server: Server;
 
@@ -31,7 +32,7 @@ export class MessageGateway
     private readonly connectionsService: ConnectionsService,
     private readonly authorizationService: AuthorizationService,
     private readonly messagesService: MessagesService
-  ) { }
+  ) {}
 
   handleConnection(client: Socket, ..._: any[]) {
     const { sockets } = this.server.sockets;
@@ -107,7 +108,7 @@ export class MessageGateway
     // client.emit('receive-message', res);
     // return;
     const response = await this.messagesService.sendMessage(user, data);
-    console.log("MENSAGEM Do Bot", response);
+    console.log('MENSAGEM Do Bot', response);
     client.emit('receive-message', response);
 
     // pega o socketId do usuário destino
@@ -123,16 +124,15 @@ export class MessageGateway
     // }
   }
 
-  // Exemplo de resposta do bot
-  // responseMessage(userId, payload) {
-  //   this.server.emit(
-  //     `response-${userId}`,
-  //     {
-  //       ...payload,
-  //       message: `Resposta do bot: ${payload.message}`,
-  //       userId: 'bot',
-  //     },
-  //     'bot'
-  //   );
-  // }
+  public emitToUser(userId: string, event: string, payload: any) {
+    const socketId = this.connectionsService.getSocketId(userId);
+
+    if (!socketId) {
+      console.warn(`⚠️ Usuário ${userId} não está conectado via socket.`);
+      return;
+    }
+
+    this.server.to(socketId).emit(event, payload);
+    console.log(`📤 Emitido para ${userId} no canal "${event}":`, payload);
+  }
 }

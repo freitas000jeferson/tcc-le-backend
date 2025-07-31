@@ -9,3 +9,4 @@ export * from './Settings';
 export * from './User';
 export * from './Vocabulary';
 export * from './Questionnarie';
+export * from './AudioAnalysis';

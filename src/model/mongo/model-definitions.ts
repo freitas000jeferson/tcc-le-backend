@@ -22,6 +22,8 @@ import {
   VocabularySchema,
   Questionnarie,
   QuestionnarieSchema,
+  AudioAnalysis,
+  AudioAnalysisSchema,
 } from './index';
 
 export const ModelDefinitions: Record<string, ModelDefinition> = {
@@ -36,4 +38,5 @@ export const ModelDefinitions: Record<string, ModelDefinition> = {
   Settings: { name: Settings.name, schema: SettingsSchema },
   Vocabulary: { name: Vocabulary.name, schema: VocabularySchema },
   Questionnarie: { name: Questionnarie.name, schema: QuestionnarieSchema },
+  AudioAnalysis: { name: AudioAnalysis.name, schema: AudioAnalysisSchema },
 } as const;

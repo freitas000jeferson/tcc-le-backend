@@ -9,20 +9,27 @@ import { CreateMessageService } from 'src/services/message/create-message.servic
 import { SendMessageService } from 'src/services/message/send-message.service';
 import { MessagesController } from './messages.controller';
 import { MessagesService } from './messages.service';
-import { SpeechToTextService } from 'src/services/rabbitmq/speech-to-text.service';
 import { SpeechToTextServiceV2 } from 'src/services/transcription/speech-to-text.service';
 import { MessageGateway } from './message.gateway';
 import { AuthorizationService } from 'src/auth/providers/authorization.service';
 import { ConnectionsService } from './connections.service';
+import { RabbitmqModule } from 'src/services/rabbitmq/rabbitmq.module';
+import { SpeechToTextService } from 'src/services/speech/speech-to-text.service';
+import { SpeechAnalysisCallbackService } from 'src/services/speech/speech-analysis-callback.service';
+import { SpeechAnalysisService } from 'src/services/speech/speech-analysis.service';
+import { AudioAnalysisMongoRepository } from 'src/repository/audioAnalysis/implementations/audio-analysis-mongo.repository';
+import { AUDIO_ANALYSIS_REPOSITORY_NAME } from 'src/repository/audioAnalysis/i-audio-analysis.repository';
 
 @Module({
   imports: [
     ChatbotHttpModule,
     AuthModule,
+    RabbitmqModule,
     MongooseModule.forFeature([
       ModelDefinitions.AccessToken,
       ModelDefinitions.User,
       ModelDefinitions.Message,
+      ModelDefinitions.AudioAnalysis,
     ]),
   ],
   controllers: [MessagesController],
@@ -38,9 +45,17 @@ import { ConnectionsService } from './connections.service';
     SpeechToTextService,
     SpeechToTextServiceV2,
 
+    // analise do audio
+    SpeechAnalysisCallbackService,
+    SpeechAnalysisService,
+
     AuthorizationService,
     // implementacoes dos repositorios
     { provide: MESSAGE_REPOSITORY_NAME, useClass: MessageMongoRepository },
+    {
+      provide: AUDIO_ANALYSIS_REPOSITORY_NAME,
+      useClass: AudioAnalysisMongoRepository,
+    },
   ],
 })
 export class MessagesModule {}

@@ -5,7 +5,6 @@ import {
   MaxFileSizeValidator,
   ParseFilePipe,
   Post,
-  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -15,9 +14,9 @@ import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { MessagesService } from './messages.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { FileSizeValidationPipe } from 'src/commom/pipes/file-size-validation.pipe';
-import { Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { AudioAnalysisDto } from './dto/audio-analysis.dto';
+import { AudioAnalysisCallbackDto } from './dto/audio-analysis-callback.dto';
 
 @Controller({ path: 'messages', version: '1' })
 export class MessagesController {
@@ -33,9 +32,10 @@ export class MessagesController {
     return await this.messagesService.sendMessage(user, createMessageDto);
   }
 
-  @Post('upload')
+  @UseGuards(JwtAuthGuard, AuthGuard)
+  @Post('analysis-audio/upload')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(
+  async analysisAudio(
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -45,8 +45,15 @@ export class MessagesController {
       })
       // new FileSizeValidationPipe()
     )
-    file: Express.Multer.File
+    file: Express.Multer.File,
+    @User() user: UserType,
+    @Body() dto: AudioAnalysisDto
   ) {
-    return await this.messagesService.uploadFile(file);
+    return await this.messagesService.analysisAudio(user, file, dto);
+  }
+
+  @Post('analysis-audio/callback')
+  async analysisAudioCallback(@Body() dto: AudioAnalysisCallbackDto) {
+    return await this.messagesService.analysisAudioCallback(dto);
   }
 }

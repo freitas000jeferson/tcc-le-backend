@@ -1,3 +1,4 @@
+import { RabbitmqModule } from './services/rabbitmq/rabbitmq.module';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -9,7 +10,6 @@ import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
-    AuthModule,
     ...Object.values(modules),
     // LearnModule,
     // MessagesModule,
@@ -45,6 +45,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
         },
       }),
     }),
+    AuthModule,
+    RabbitmqModule,
   ],
   controllers: [AppController],
   providers: [

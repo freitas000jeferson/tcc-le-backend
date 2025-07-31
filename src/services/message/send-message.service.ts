@@ -4,17 +4,24 @@ import { AxiosError } from 'axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { MessageFactory } from './message-factory';
 import { ChatbotMessageResponseDto, SendMessageServiceDto } from './types';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class SendMessageService {
-  constructor(private readonly httpService: HttpService) { }
+  private readonly url: string;
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly configService: ConfigService
+  ) {
+    this.url = this.configService.get<string>('RASA_URL');
+  }
 
   async handle(dto: SendMessageServiceDto) {
     try {
       const { data } = await firstValueFrom(
         this.httpService
           .post<ChatbotMessageResponseDto[]>(
-            'http://192.168.3.4:5005/webhooks/rest/webhook',
+            this.url,
             MessageFactory.sendMessage(dto)
           )
           .pipe(
