@@ -3,3 +3,4 @@ pika
 openai-whisper
 pydub
 difflib
+python-magic

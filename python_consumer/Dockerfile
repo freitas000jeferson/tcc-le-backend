@@ -1,9 +1,3 @@
-# FROM python:3.8.10
-# ADD . /code
-# WORKDIR /code
-# RUN pip install -r requirements.txt
-# CMD python app.py
-
 # consumer/Dockerfile
 FROM python:3.10-slim
 
@@ -12,13 +6,14 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Atualiza pacotes e instala ffmpeg e dependências do whisper
 RUN apt-get update && \
-    apt-get install -y ffmpeg git && \
-    apt-get clean
+    apt-get install -y ffmpeg git libmagic1 file && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
+COPY requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
